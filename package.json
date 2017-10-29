@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/musickiper/Project1/issues"
   },
-  "homepage": "https://github.com/musickiper/Project1#readme"
+  "homepage": "https://github.com/musickiper/Project1#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-error-handler": "^1.1.0",
+    "serve-static": "^1.13.1"
+  }
 }
