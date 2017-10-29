@@ -1,0 +1,19 @@
+{
+  "name": "project1",
+  "version": "1.0.0",
+  "description": "This is Younsung's the first web site. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/musickiper/Project1.git"
+  },
+  "author": "Younsung Jung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/musickiper/Project1/issues"
+  },
+  "homepage": "https://github.com/musickiper/Project1#readme"
+}
