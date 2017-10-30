@@ -21,6 +21,12 @@ app.use('/', static(path.join(__dirname, 'html')));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
+router.route('/images/:name').get(function(req,res){
+    var imageName = req.params.name;
+
+    res.sendFile(path.join(__dirname,'images', imageName));
+});
+
 app.use('/', router);
 
 //Error control.
