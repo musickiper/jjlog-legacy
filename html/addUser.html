@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Sign Up</title>
+        <link rel="stylesheet" type="text/css" href="../css/main.css">
+    </head>
+    <body>
+        <div class="container">
+            <form method="post" action="/process/addUser">
+                <h1>Sign Up</h1>
+                <fieldset>
+                    <legend>Id and Password</legend>
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="id">ID</label>
+                            </td>
+                            <td>
+                                <input type="text" id="id" name="id" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="password">Password</label>
+                            </td>
+                            <td>
+                                <input type="password" id="password" name="password" required>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend>Personal Information</legend>
+                    <table>
+                        <td>
+                            <label for="name">Name</label>
+                        </td>
+                        <td>
+                            <input type="text" id="name" name="name" placeholder="No blank" required>
+                        </td>
+                    </table>
+                </fieldset>
+                <br>
+                <div class="centered">
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Reset">
+                </div>
+            </form>
+    </body>
+</html>
