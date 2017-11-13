@@ -10,6 +10,7 @@ var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
 var expressErrorHandler = require('express-error-handler');
 var mongoose = require('mongoose');
+var crypto = require('crypto');
 
 //Express Obj
 var app = express();
@@ -53,28 +54,7 @@ function connectDB(){
     database.on('open', function(){
         console.log('Success to connect to the database : ' + databaseUrl);
 
-        UserSchema = mongoose.Schema({
-            id:{type:String,required:true,unique:true}
-            ,name:{type:String,required:true}
-            ,password:{type:String,required:true}
-            ,name:{type:String,index:'hashed'}
-            ,age:Number
-            ,created_at:{type:Date,index:{unique:false,expires:'1d'}}
-            ,updated_at:{type:Date,index:{unique:false,expires:'1d'}}
-        });
-
-        UserSchema.static('findById', function(id, callback){
-            return this.find({id:id}, callback);
-        });
-
-        UserSchema.static('findAll', function(callback){
-            return this.find({},callback);
-        });
-
-        console.log('UserSchema is defined.');
-
-        UserModel = mongoose.model('users', UserSchema);
-        console.log('UserModel is defined.');
+        createUserSchema();
     });
 
     database.on('disconnected', function(){
@@ -82,6 +62,66 @@ function connectDB(){
         setInterval(connectDB, 5000);
     });
 }
+
+//Function for define UserSchema && UserModel
+function createUserSchema(){
+
+    UserSchema = mongoose.Schema({
+        id:{type:String,required:true,unique:true,'default':' '}
+        ,hashed_password:{type:String,require:true,'default':' '}
+        ,salt:{type:String,require:true}
+        ,name:{type:String,required:true,index:'hashed','default':' '}
+        ,age:{type:Number,'default':-1}
+        ,created_at:{type:Date,index:{unique:false,expires:'1d'},'default':Date.now}
+        ,updated_at:{type:Date,index:{unique:false,expires:'1d'},'default':Date.now}
+    });
+
+    //Atrribute for encryption of password.
+    UserSchema
+        .virtual('password')
+        .set(function(password){
+            this._password = password;
+            this.salt = this.makeSalt();
+            this.hashed_password = this.encryptPassword(password);
+        })
+        .get(function(){return this._password});
+
+    //Method 1 using for password encryption.
+    UserSchema.method('encryptPassword',function(plainText, inSalt){
+        if(inSalt){
+            return crypto.createHmac('sha512',inSalt).update(plainText).digest('hex');
+        }
+        else{
+            return crypto.createHmac('sha512',this.salt).update(plainText).digest('hex');
+        }
+    });
+
+    //Making salt(which is random value for encryption)
+    UserSchema.method('makeSalt', function(){
+        return Math.round((new Date().valueOf()*Math.random())) + '';
+    });
+
+    //Authenication method.
+    UserSchema.method('authenticate', function(plainText, inSalt, hashed_password){
+        if(inSalt){
+            return this.encryptPassword(plainText, inSalt) === hashed_password;
+        }
+        else{
+            return this.encryptPassword(plainText) === this.hashed_password;
+        }
+    });
+
+    //Method for finding the user information by id.
+    UserSchema.static('findById', function(id, callback){
+        return this.find({id:id}, callback);
+    });
+
+    console.log('UserSchema is defined.');
+
+    //UserModel define.
+    UserModel = mongoose.model('users', UserSchema);
+    console.log('UserModel is defined.');
+};
 
 //Function for user authorization.
 var authUser = function(database, id, password, callback){
@@ -94,7 +134,13 @@ var authUser = function(database, id, password, callback){
         }
 
         if(result.length > 0){
-            if(result[0].password === password){
+            console.log('Valid id.');
+
+            //Password validation checkcing.
+            var user = new UserModel({id:id});
+            var authenticated = user.authenticate(password, result[0].salt, result[0].hashed_password);
+
+            if(authenticated){
                 console.log('Valid password.');
                 callback(null,result);
             }
