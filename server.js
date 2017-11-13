@@ -41,7 +41,7 @@ var UserSchema;
 var UserModel;
 
 function connectDB(){
-    var databaseUrl = 'mongodb://localhost:27017/local';
+    var databaseUrl = 'mongodb://<leedo01219>:<Jun1452563#>@ds249605.mlab.com:49605/heroku_bmbp7spr';
 
     console.log('Trying to connect to the database.');
     mongoose.Promise = global.Promise;
