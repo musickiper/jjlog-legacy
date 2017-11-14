@@ -12,9 +12,13 @@ var expressErrorHandler = require('express-error-handler');
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 
+//Import modules made by me.
+var user = require('./routes/user');
+var config = require('./config');
+var db_config = require('./database/database');
+
 //Express Obj
 var app = express();
-app.set('port', process.env.PORT || 3000);
 
 //the middleware set for connecting to the files using specific path.
 app.use('/', static(path.join(__dirname, "html")));
@@ -40,19 +44,18 @@ var UserModel;
 
 //Function for connect mongoDB.
 function connectDB(){
-    var databaseUrl = 'mongodb://leedo01219:Jun1452563#@ds249605.mlab.com:49605/heroku_bmbp7spr';
 
-    console.log("Try to connect to the database...");
-    mongoose.Promise = global.Promise;
-    var promise = mongoose.connect(databaseUrl, {
-        useMongoClient:true
-    });
-    database = mongoose.connection;
+    //Initializing database and make the userSchema && userModel added as one of the attributes of app obj.
+    //Whenever we update config file's db_schemas, it automatically update schemas and models of this server.
+    //Through it, we can add new schema or new model without changing server file, just need to update config file. 
+    db_config.init(app, config);
+
+    database = db_config.db;
 
     database.on('error', console.error.bind(console, 'mongoose connection error'));
 
     database.on('open', function(){
-        console.log('Success to connect to the database : ' + databaseUrl);
+        console.log('Success to connect to the database : ' + config.db_url);
 
         createUserSchema();
     });
@@ -65,180 +68,21 @@ function connectDB(){
 
 //Function for define UserSchema && UserModel
 function createUserSchema(){
+    var db = app.get('database');
 
-    UserSchema = mongoose.Schema({
-        id:{type:String,required:true,unique:true,'default':' '}
-        ,hashed_password:{type:String,require:true,'default':' '}
-        ,salt:{type:String,require:true}
-        ,name:{type:String,required:true,index:'hashed','default':' '}
-        ,age:{type:Number,'default':-1}
-        ,created_at:{type:Date,index:{unique:false,expires:'1d'},'default':Date.now}
-        ,updated_at:{type:Date,index:{unique:false,expires:'1d'},'default':Date.now}
-    });
-
-    //Atrribute for encryption of password.
-    UserSchema
-        .virtual('password')
-        .set(function(password){
-            this._password = password;
-            this.salt = this.makeSalt();
-            this.hashed_password = this.encryptPassword(password);
-        })
-        .get(function(){return this._password});
-
-    //Method 1 using for password encryption.
-    UserSchema.method('encryptPassword',function(plainText, inSalt){
-        if(inSalt){
-            return crypto.createHmac('sha512',inSalt).update(plainText).digest('hex');
-        }
-        else{
-            return crypto.createHmac('sha512',this.salt).update(plainText).digest('hex');
-        }
-    });
-
-    //Making salt(which is random value for encryption)
-    UserSchema.method('makeSalt', function(){
-        return Math.round((new Date().valueOf()*Math.random())) + '';
-    });
-
-    //Authenication method.
-    UserSchema.method('authenticate', function(plainText, inSalt, hashed_password){
-        if(inSalt){
-            return this.encryptPassword(plainText, inSalt) === hashed_password;
-        }
-        else{
-            return this.encryptPassword(plainText) === this.hashed_password;
-        }
-    });
-
-    //Method for finding the user information by id.
-    UserSchema.static('findById', function(id, callback){
-        return this.find({id:id}, callback);
-    });
-
-    console.log('UserSchema is defined.');
-
-    //UserModel define.
-    UserModel = mongoose.model('users', UserSchema);
-    console.log('UserModel is defined.');
+    for(var i = 0; i < config.db_schemas.length; i++){
+        UserSchema = db[config.db_schemas[i].schemaName];
+        UserModel = db[config.db_schemas[i].modelName];
+        user.init(database, UserSchema, UserModel);
+    }
 };
-
-//Function for user authorization.
-var authUser = function(database, id, password, callback){
-    console.log('authUser is called.');
-
-    UserModel.findById(id, function(err,result){
-        if(err){
-            callback(err,null);
-            return;
-        }
-
-        if(result.length > 0){
-            console.log('Valid id.');
-
-            //Password validation checkcing.
-            var user = new UserModel({id:id});
-            var authenticated = user.authenticate(password, result[0].salt, result[0].hashed_password);
-
-            if(authenticated){
-                console.log('Valid password.');
-                callback(null,result);
-            }
-            else{
-                console.log('Invalid password');
-                callback(null,null);
-            }
-        }
-        else{
-            console.log('Invalid user.');
-            callback(null,null);
-        }
-    });
-}
-
-//Function for adding user.
-var addUser = function(database, id, password, name, callback){
-    console.log('addUser is called.');
-
-    var user = new UserModel({"id":id, "password":password, "name":name});
-
-    user.save(function(err){
-        if(err){
-            callback(err,null);
-            return;
-        }
-        console.log('Addition succeed.');
-        callback(null,user);
-    });
-}
 
 //Router
 var router = express.Router();
 
-router.route('/process/login').post(function(req,res){
-    console.log('/process/login is called.');
+router.route('/process/login').post(user.login);
 
-    var paramId = req.body.id || req.query.id;
-    var paramPassword = req.body.password || req.query.password;
-
-    if(database){
-        authUser(database, paramId, paramPassword, function(err,result){
-            if(err) throw err;
-
-            if(result){
-                var username = result[0].name;
-                res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
-                res.write('<h1>Login succeed.</h1>');
-                res.write("<br><br><a href='/login.html'>Login again</a>");
-                res.end();
-            }
-            else{
-                res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
-                res.write('<h1>Login failed.</h1>');
-                res.write('<div><p>Re-check the id or password.</p></div>');
-                res.write("<br><br><a href='/login.html'>Login again</a>");
-                res.end();
-            }
-        });
-    }
-    else{
-        res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
-        res.write('<h2>Database connection failed.</h2>');
-        res.write('<div><p>Database connection failed.</p></div>');
-        res.end();
-    }
-});
-
-router.route('/process/adduser').post(function(req,res){
-    console.log('/process/adduser is called.');
-
-    var paramId = req.body.id || req.query.id;
-    var paramPassword = req.body.password || req.query.password;
-    var paramName = req.body.name || req.query.name;
-
-    if(database){
-        addUser(database, paramId, paramPassword, paramName, function(err,result){
-            if(err) throw err;
-
-            if(result){
-                res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
-                res.write('<h2>User addition is compete.');
-                res.end();
-            }
-            else{
-                res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
-                res.write('<h2>User adiition is failed.')
-                res.end();
-            }
-        });
-    }
-    else{
-        res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
-        res.write('<h2>Database connection failed.</h2>');
-        res.write('<div><p>Database connection failed.</p></div>');
-        res.end();
-    }
-});
+router.route('/process/adduser').post(user.adduser);
 
 app.use('/', router);
 
@@ -253,7 +97,7 @@ app.use(expressErrorHandler.httpError(404));
 app.use(errorHandler);
 
 //Express server set.
-app.listen(app.get('port'), function(){
-    console.log('Express server is working on the port :' + app.get('port'));
+app.listen(config.server_port, function(){
+    console.log('Express server is working on the port :' + config.server_port);
     connectDB();
 });
