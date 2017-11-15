@@ -16,6 +16,7 @@ var crypto = require('crypto');
 var user = require('./routes/user');
 var config = require('./config');
 var db_config = require('./database/database');
+var route_loader = require('./routes/route_loader');
 
 //Express Obj
 var app = express();
@@ -78,13 +79,7 @@ function createUserSchema(){
 };
 
 //Router
-var router = express.Router();
-
-router.route('/process/login').post(user.login);
-
-router.route('/process/adduser').post(user.adduser);
-
-app.use('/', router);
+route_loader.init(app, express.Router());
 
 //Error handling.
 var errorHandler = expressErrorHandler({
