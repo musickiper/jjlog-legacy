@@ -2,51 +2,71 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Sign Up</title>
-        <link rel="stylesheet" type="text/css" href="../css/main.css">
+        <meta name="viewport" content="width=device-width, height=device-height,initial-scale=1">
+        <title>Login Page</title>
+        <link rel="stylesheet" type="text/css" href="/css/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/login.css">
+        <script src="/css/semantic.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script>
+            $(function(){
+
+            })
+        </script>
     </head>
     <body>
         <div class="container">
-            <form method="post" action="/process/addUser">
-                <h1>Sign Up</h1>
-                <fieldset>
-                    <legend>Id and Password</legend>
-                    <table>
-                        <tr>
-                            <td>
-                                <label for="id">ID</label>
-                            </td>
-                            <td>
-                                <input type="text" id="id" name="id" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="password">Password</label>
-                            </td>
-                            <td>
-                                <input type="password" id="password" name="password" required>
-                            </td>
-                        </tr>
-                    </table>
-                </fieldset>
-                <br>
-                <fieldset>
-                    <legend>Personal Information</legend>
-                    <table>
-                        <td>
-                            <label for="name">Name</label>
-                        </td>
-                        <td>
-                            <input type="text" id="name" name="name" placeholder="No blank" required>
-                        </td>
-                    </table>
-                </fieldset>
-                <br>
-                <div class="centered">
-                    <input type="submit" value="Submit">
-                    <input type="reset" value="Reset">
+            <div id = "cardbox" class="ui blue fluid card">
+                <div class="content">
+                    <div class="left floated author">
+                        <img id="iconImage" class="ui avatar image" src="/images/umbrella.png">
+                    </div>
+                    <div>
+                        <div id="titleText" class="header">Login</div>
+                        <div id="contentsText" class="description">
+                            Enter your Id and Password to login.
+                        </div>
+                    </div>
                 </div>
-            </form>
+                <form id="form1" method="post" action="/process/adduser">
+                    <table>
+                        <tr class="row">
+                            <td class="col1"><label id="contentsText">ID</label></td>
+                            <td class="col2" colspan="2">
+                                <div class="ui input">
+                                    <input class="inputbox" type="text" name="id">
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr class="row">
+                            <td class="col1"><label id="contentsText">Password</label></td>
+                            <td class="col2" colspan="2">
+                                <div class="ui input">
+                                    <input class="inputbox" type="password" name="password">
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr class="row">
+                            <td class="col1"><label id="contentsText">Name</label></td>
+                            <td class="col2" colspan="2">
+                                <div class="ui input">
+                                    <input class="inputbox" type="text" name="name">
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr valign="baseline">
+                            <td></td>
+                            <td></td>
+                            <td id="buttonContainer" align="right">
+                                <input it="submitButtion" class="ui primary button" type="submit" value="sign up" name="">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
     </body>
 </html>
