@@ -57,6 +57,7 @@ var addUser = function(database, id, password, name, callback){
     });
 }
 
+//Function for login.
 var login = function(req,res){
     console.log('/process/login is called.');
 
@@ -69,10 +70,23 @@ var login = function(req,res){
 
             if(result){
                 var username = result[0].name;
+
                 res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
-                res.write('<h1>Login succeed.</h1>');
-                res.write("<br><br><a href='/login.html'>Login again</a>");
-                res.end();
+
+                var context = {userid:paramId, username:username};
+                req.app.render('login_success',context, function(err,html){
+                    if(err){
+                        console.err("Error happen durung view rendering.");
+
+                        res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
+                        res.write('<h2>Error happen during view rendering.</h2>');
+                        res.write('<p>' + err.stack + '</p>');
+                        res.end();
+
+                        return;
+                    }
+                    res.end(html);
+                });
             }
             else{
                 res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
@@ -91,6 +105,7 @@ var login = function(req,res){
     }
 };
 
+//Function for adduser.
 var adduser = function(req,res){
     console.log('/process/adduser is called.');
 
@@ -104,8 +119,21 @@ var adduser = function(req,res){
 
             if(result){
                 res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
-                res.write('<h2>User addition is compete.');
-                res.end();
+
+                var context={userid:paramId};
+
+                req.app.render('adduser', context, function(err,html){
+                    if(err){
+                        console.error("Error happen durung view rendering.");
+
+                        res.write('<h2>Error happen during view rendering.</h2>');
+                        res.write('<p>' + err.stack + '</p>');
+                        res.end();
+
+                        return;
+                    }
+                    res.end(html);
+                });
             }
             else{
                 res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});

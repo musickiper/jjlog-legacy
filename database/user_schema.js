@@ -5,11 +5,10 @@ var Schema = {};
 Schema.createUserSchema = function(mongoose){
 
     var UserSchema = mongoose.Schema({
-        id:{type:String,required:true,unique:true,'default':' '}
-        ,hashed_password:{type:String,require:true,'default':' '}
+        email:{type:String,required:true,unique:true,'default':''}
+        ,hashed_password:{type:String,require:true,'default':''}
         ,salt:{type:String,require:true}
-        ,name:{type:String,required:true,index:'hashed','default':' '}
-        ,age:{type:Number,'default':-1}
+        ,name:{type:String,required:true,index:'hashed','default':''}
         ,created_at:{type:Date,index:{unique:false,expires:'1d'},'default':Date.now}
         ,updated_at:{type:Date,index:{unique:false,expires:'1d'},'default':Date.now}
     });
@@ -49,10 +48,20 @@ Schema.createUserSchema = function(mongoose){
         }
     });
 
-    //Method for finding the user information by id.
-    UserSchema.static('findById', function(id, callback){
-        return this.find({id:id}, callback);
+    //Method for finding the user information by email.
+    UserSchema.static('findByEmail', function(email, callback){
+        return this.find({email:email}, callback);
     });
+
+    //Validate exist of email.
+    UserSchema.path('email').validate(function(email){
+        return email.length;
+    }, 'There is no email column.');
+
+    //Validate exist of hashed_password.
+    UserSchema.path('hashed_password').validate(function(hashed_password){
+        return hashed_password.length;
+    }, 'There is no hashed_password column.');
 
     console.log('UserSchema is defined.');
 
