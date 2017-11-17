@@ -23,6 +23,16 @@ Schema.createUserSchema = function(mongoose){
         })
         .get(function(){return this._password});
 
+    //Validate exist of email.
+    UserSchema.path('email').validate(function(email){
+        return email.length;
+    }, 'There is no email column.');
+
+    //Validate exist of hashed_password.
+    UserSchema.path('hashed_password').validate(function(hashed_password){
+        return hashed_password.length;
+    }, 'There is no hashed_password column.');
+
     //Method 1 using for password encryption.
     UserSchema.method('encryptPassword',function(plainText, inSalt){
         if(inSalt){
@@ -52,16 +62,6 @@ Schema.createUserSchema = function(mongoose){
     UserSchema.static('findByEmail', function(email, callback){
         return this.find({email:email}, callback);
     });
-
-    //Validate exist of email.
-    UserSchema.path('email').validate(function(email){
-        return email.length;
-    }, 'There is no email column.');
-
-    //Validate exist of hashed_password.
-    UserSchema.path('hashed_password').validate(function(hashed_password){
-        return hashed_password.length;
-    }, 'There is no hashed_password column.');
 
     console.log('UserSchema is defined.');
 

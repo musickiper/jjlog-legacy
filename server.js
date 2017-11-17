@@ -1,8 +1,12 @@
+/*---------- Modules ----------*/
+
 //Import express basic modules.
 var express = require('express')
-    ,http = require('http')
-    ,path = require('path');
+var http = require('http')
+var path = require('path');
 
+//Express Obj.
+var app = express();
 
 //Import express non-basic modules.
 var static = require('serve-static');
@@ -22,13 +26,14 @@ var config = require('./config');
 var db_config = require('./database/database');
 //var route_loader = require('./routes/route_loader');
 
-//Express Obj
-var app = express();
+/*----------View Engine----------*/
 
 //Set view engine.
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 console.log('View engine is set : ejs');
+
+/*----------Middlewares for basic setting----------*/
 
 //the middleware set for connecting to the files using specific path.
 app.use('/', static(path.join(__dirname, "html")));
@@ -47,10 +52,7 @@ app.use(expressSession({
     saveUninitialized:true
 }));
 
-//Passport initialization.
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
+/*----------DataBase(MongoDB)----------*/
 
 //Database connection.
 var database;
@@ -83,16 +85,23 @@ function connectDB(){
 
 //Function for define UserSchema && UserModel
 function createUserSchema(){
-    var db = app.get('database');
+    var database = app.get('database');
 
     for(var i = 0; i < config.db_schemas.length; i++){
-        UserSchema = db[config.db_schemas[i].schemaName];
-        UserModel = db[config.db_schemas[i].modelName];
+        UserSchema = database[config.db_schemas[i].schemaName];
+        UserModel = database[config.db_schemas[i].modelName];
         //user.init(database, UserSchema, UserModel);
     }
 };
 
-//Passport login setting.
+/*----------Passport----------*/
+
+//Passport initialization.
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+//Set the Local(local-login) strategy.
 passport.use('local-login', new LocalStrategy({
     usernameField:'email',
     passwordField:'password',
@@ -108,24 +117,24 @@ passport.use('local-login', new LocalStrategy({
 
         //No registered user
         if(!user){
-            console.log('The account is not registered.');
-            return done(null,false,req.flash('loginMessage','No registered account.'));
+            console.log('Invalid user-email');
+            return done(null,false,req.flash('loginMessage','Invalid user-email'));
         }
 
         //No registered password
         var authenticated = user.authenticate(password, user.salt, user.hashed_password);
 
         if(!authenticated){
-            console.log('The password is not registered.');
-            return done(null,false,req.flash('loginMessage','The password is not registered'));
+            console.log('Invalid user-email');
+            return done(null,false,req.flash('loginMessage','Invalid user-password'));
         }
 
-        console.log('The id and password are registered.');
+        console.log('Valid user-email and user-password');
         return done(null,user);
     });
 }));
 
-//Passport adduser setting.
+//Set the Local(local-signup) strategy.
 passport.use('local-signup', new LocalStrategy({
     usernameField:'email',
     passwordField:'password',
@@ -143,8 +152,8 @@ passport.use('local-signup', new LocalStrategy({
             }
 
             if(user){
-                console.log('Account is already exist.');
-                return done(null, false, req.flash('signupMessage','The account is already existing.'));
+                console.log('Already exist account');
+                return done(null, false, req.flash('signupMessage','Already exist account.'));
             }
             else{
                 var user = new database.UserModel({'email':email,'password':password,'name':paramName});
@@ -165,16 +174,17 @@ passport.serializeUser(function(user,done){
     done(null,user);
 });
 
+//Restore the information of the user from the session.
 passport.deserializeUser(function(user,done){
     console.log('deserializeUser() called.');
     done(null,user);
 });
 
-//Router
-//route_loader.init(app, express.Router());
-var router = express.Router();
+/*----------Router----------*/
 
-app.use('/',router);
+//Read router information from config and set the information as atrributes of app obj.
+route_loader.init(app, express.Router());
+var router = express.Router();
 
 //Home page - index.ejs
 router.route('/').get(function(req,res){
@@ -182,24 +192,26 @@ router.route('/').get(function(req,res){
     res.render('index.ejs');
 });
 
-//Login form link.
+//Login form linkage.
 app.get('/login', function(req,res){
     console.log('/login path called.');
     res.render('login.ejs', {message:req.flash('loginMessage')});
 });
 
+//Getting information from login form called above as post method, and autheticate using passport.
 app.post('/login', passport.authenticate('local-login', {
     successRedirect:'/profile',
     failureRedirect:'/login',
     failureFlash:true
 }));
 
-//Sign up form link.
+//Sign up form linkage.
 app.get('/signup', function(req,res){
     console.log('/signup path called.');
     res.render('signup.ejs',{message:req.flash('signupMessage')});
 });
 
+//Getting information from signup form called above as post method, and autheticate using passport.
 app.post('/signup', passport.authenticate('local-signup',{
     successRedirect:'/profile',
     failureRedirect:'/signup',
@@ -231,6 +243,11 @@ app.get('/logout', function(req,res){
     req.logout();
     res.redirect('/');
 });
+
+//Middleware for router working.
+app.use('/',router);
+
+/*----------Error Handling----------*/
 
 //Error handling.
 var errorHandler = expressErrorHandler({
