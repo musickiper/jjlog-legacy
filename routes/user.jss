@@ -8,7 +8,6 @@ var init = function(db, schema, model){
     UserModel = model;
 };
 
-//Function for user authorization.
 var authUser = function(database, id, password, callback){
     console.log('authUser is called.');
 
