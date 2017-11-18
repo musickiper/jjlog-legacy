@@ -18,13 +18,14 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 var passport = require('passport');
 var flash = require('connect-flash');
-var LocalStrategy = require('passport-local').Strategy;
 
 //Import modules made by me.
 //var user = require('./routes/user');
-var config = require('./config');
+var config = require('./config/config');
 var db_config = require('./database/database');
-//var route_loader = require('./routes/route_loader');
+var route_loader = require('./routes/route_loader');
+var configPassport = require('./config/passport');
+var userPassport = require('./routes/user_passport');
 
 /*----------View Engine----------*/
 
@@ -90,7 +91,6 @@ function createUserSchema(){
     for(var i = 0; i < config.db_schemas.length; i++){
         UserSchema = database[config.db_schemas[i].schemaName];
         UserModel = database[config.db_schemas[i].modelName];
-        //user.init(database, UserSchema, UserModel);
     }
 };
 
@@ -101,148 +101,18 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-//Set the Local(local-login) strategy.
-passport.use('local-login', new LocalStrategy({
-    usernameField:'email',
-    passwordField:'password',
-    passReqToCallback:true
-},function(req,email,password,done){
-    console.log("passport's local-login called.");
-
-    var database = app.get('database');
-    database.UserModel.findOne({'email':email}, function(err,user){
-        if(err){
-            return done(err);
-        }
-
-        //No registered user
-        if(!user){
-            console.log('Invalid user-email');
-            return done(null,false,req.flash('loginMessage','Invalid user-email'));
-        }
-
-        //No registered password
-        var authenticated = user.authenticate(password, user.salt, user.hashed_password);
-
-        if(!authenticated){
-            console.log('Invalid user-email');
-            return done(null,false,req.flash('loginMessage','Invalid user-password'));
-        }
-
-        console.log('Valid user-email and user-password');
-        return done(null,user);
-    });
-}));
-
-//Set the Local(local-signup) strategy.
-passport.use('local-signup', new LocalStrategy({
-    usernameField:'email',
-    passwordField:'password',
-    passReqToCallback:true
-},function(req,email,password,done){
-    var paramName = req.body.name || req.query.name;
-
-    console.log("passport's local-signup called.");
-
-    process.nextTick(function(){
-        var database = app.get('database');
-        database.UserModel.findOne({'email':email}, function(err,user){
-            if(err){
-                return done(err);
-            }
-
-            if(user){
-                console.log('Already exist account');
-                return done(null, false, req.flash('signupMessage','Already exist account.'));
-            }
-            else{
-                var user = new database.UserModel({'email':email,'password':password,'name':paramName});
-
-                user.save(function(err){
-                    if(err) throw err;
-                    console.log('User information added.');
-                    return done(null,user);
-                });
-            }
-        });
-    });
-}));
-
-//Information store to the session.
-passport.serializeUser(function(user,done){
-    console.log('serializeUser() called.');
-    done(null,user);
-});
-
-//Restore the information of the user from the session.
-passport.deserializeUser(function(user,done){
-    console.log('deserializeUser() called.');
-    done(null,user);
-});
+//Passport setting.
+configPassport(app, passport);
 
 /*----------Router----------*/
 
-//Read router information from config and set the information as atrributes of app obj.
-route_loader.init(app, express.Router());
 var router = express.Router();
 
-//Home page - index.ejs
-router.route('/').get(function(req,res){
-    console.log('/ path called.');
-    res.render('index.ejs');
-});
+//Read router information from config and set the information as atrributes of app obj.
+route_loader.init(app, router);
 
-//Login form linkage.
-app.get('/login', function(req,res){
-    console.log('/login path called.');
-    res.render('login.ejs', {message:req.flash('loginMessage')});
-});
-
-//Getting information from login form called above as post method, and autheticate using passport.
-app.post('/login', passport.authenticate('local-login', {
-    successRedirect:'/profile',
-    failureRedirect:'/login',
-    failureFlash:true
-}));
-
-//Sign up form linkage.
-app.get('/signup', function(req,res){
-    console.log('/signup path called.');
-    res.render('signup.ejs',{message:req.flash('signupMessage')});
-});
-
-//Getting information from signup form called above as post method, and autheticate using passport.
-app.post('/signup', passport.authenticate('local-signup',{
-    successRedirect:'/profile',
-    failureRedirect:'/signup',
-    failureFlash:true
-}));
-
-//Profile page
-router.route('/profile').get(function(req,res){
-    console.log('/profile path called.');
-
-    if(!req.user){
-        console.log('user auth is failed.');
-        res.redirect('/');
-        return;
-    }
-
-    console.log('user auth is succeed.');
-    if(Array.isArray(req.user)){
-        res.render('profile.ejs',{user:req.user[0]._doc});
-    }
-    else{
-        res.render('profile.ejs',{user:req.user});
-    }
-});
-
-//Logout
-app.get('/logout', function(req,res){
-    console.log('/logout path called.');
-    req.logout();
-    res.redirect('/');
-});
+//Use router for passport.
+userPassport(app,passport);
 
 //Middleware for router working.
 app.use('/',router);

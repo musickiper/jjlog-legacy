@@ -1,6 +1,6 @@
 var route_loader = {};
 
-var config = require('../config');
+var config = require('../config/config');
 
 route_loader.init = function(app, router){
     console.log('route_loader.init called.');
@@ -16,10 +16,10 @@ function initRoutes(app, router){
 
         var curModule = require(curItem.file);
         if(curItem.type == 'get'){
-            router.route(curItem.path).get(curModule[curItem.method]);
+            app.get(curItem.path, curModule[curItem.method]);
         }
         else if(curItem.type == 'post'){
-            router.route(curItem.path).post(curModule[curItem.method]);
+            app.post(curItem.path, curModule[curItem.method]);
         }
         else{
             console.err('Unidentified type. : ' + curItem.type);
