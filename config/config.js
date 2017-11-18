@@ -10,5 +10,10 @@ module.exports = {
         {file:'./user',path:'/process/login',method:'login',type:'post'}
         ,{file:'./user',path:'/process/adduser',method:'adduser',type:'post'}
         */
-    ]
-}
+    ],
+    facebook:{
+        clientID:"864209253761536",
+        clientSecret:"6bc38683207bcf981bc1b89fd20d2af6",
+        callbackURL:"/auth/facebook/callback"
+    }
+};

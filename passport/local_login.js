@@ -1,9 +1,7 @@
 var LocalStrategy = require('passport-local').Strategy;
 
 //Set the Local(local-login) strategy.
-module.exports = function(ap){
-    var app = ap;
-
+module.exports = function(app){
     return new LocalStrategy({
         usernameField:'email',
         passwordField:'password',

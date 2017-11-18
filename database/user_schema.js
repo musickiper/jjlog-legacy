@@ -5,12 +5,14 @@ var Schema = {};
 Schema.createUserSchema = function(mongoose){
 
     var UserSchema = mongoose.Schema({
-        email:{type:String,required:true,unique:true,'default':''}
-        ,hashed_password:{type:String,require:true,'default':''}
-        ,salt:{type:String,require:true}
-        ,name:{type:String,required:true,index:'hashed','default':''}
+        id:{type:String,'default':''}
+        ,email:{type:String,'default':''}
+        ,hashed_password:{type:String,'default':''}
+        ,salt:{type:String}
+        ,name:{type:String,index:'hashed','default':''}
         ,created_at:{type:Date,index:{unique:false,expires:'1d'},'default':Date.now}
         ,updated_at:{type:Date,index:{unique:false,expires:'1d'},'default':Date.now}
+        ,provider:{type:String,'default':''}
     });
 
     //Atrribute for encryption of password.
@@ -27,11 +29,6 @@ Schema.createUserSchema = function(mongoose){
     UserSchema.path('email').validate(function(email){
         return email.length;
     }, 'There is no email column.');
-
-    //Validate exist of hashed_password.
-    UserSchema.path('hashed_password').validate(function(hashed_password){
-        return hashed_password.length;
-    }, 'There is no hashed_password column.');
 
     //Method 1 using for password encryption.
     UserSchema.method('encryptPassword',function(plainText, inSalt){
@@ -61,6 +58,10 @@ Schema.createUserSchema = function(mongoose){
     //Method for finding the user information by email.
     UserSchema.static('findByEmail', function(email, callback){
         return this.find({email:email}, callback);
+    });
+
+    UserSchema.static('findById', function(id,callback){
+        return this.find({id:id}, callback);
     });
 
     console.log('UserSchema is defined.');

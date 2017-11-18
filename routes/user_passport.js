@@ -45,6 +45,17 @@ module.exports = function(app, passport){
         res.redirect('/');
     });
 
+    //Facebook Auth
+    app.get('/auth/facebook', passport.authenticate('facebook',{
+        authType:'rerequest',
+        scope:['public_profile','email']
+    }));
+    //Facebook Auth callback
+    app.get('/auth/facebook/callback', passport.authenticate('facebook',{
+        successRedirect:'/profile',
+        failureRedirect:'/'
+    }));
+
     //Getting information from login form called above as post method, and autheticate using passport.
     app.post('/login', passport.authenticate('local-login', {
         successRedirect:'/profile',
