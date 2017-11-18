@@ -24,7 +24,7 @@ module.exports = function(app,passport){
                 ,email:profile.emails[0].value
                 ,provider:'facebook'
                 ,id:profile.id
-                ,facebook:profile
+                ,facebook:profile._json
             });
 
             user.save(function(err){
