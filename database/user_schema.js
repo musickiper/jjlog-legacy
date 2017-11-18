@@ -13,6 +13,7 @@ Schema.createUserSchema = function(mongoose){
         ,created_at:{type:Date,index:{unique:false,expires:'1d'},'default':Date.now}
         ,updated_at:{type:Date,index:{unique:false,expires:'1d'},'default':Date.now}
         ,provider:{type:String,'default':''}
+        ,facebook:{}
     });
 
     //Atrribute for encryption of password.

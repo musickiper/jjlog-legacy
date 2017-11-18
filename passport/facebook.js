@@ -20,10 +20,11 @@ module.exports = function(app,passport){
             }
 
             var user = new database.UserModel({
-                name:profile.name.givenName,
-                email:profile.emails[0].value,
-                provider:'facebook',
-                id:profile.id
+                name:profile.name.givenName
+                ,email:profile.emails[0].value
+                ,provider:'facebook'
+                ,id:profile.id
+                ,facebook:profile
             });
 
             user.save(function(err){
