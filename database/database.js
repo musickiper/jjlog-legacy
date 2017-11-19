@@ -26,7 +26,7 @@ function createSchema(app, config){
     console.log('The number of schemas set : %d', schemaLen);
 
     for(var i = 0; i < schemaLen; i++){
-        var curItem = config.db_schemas[i];
+        var curItem = config.db_sche1as[i];
 
         var curSchema = require(curItem.file).createSchema(mongoose);
         var curModel = mongoose.model(curItem.collection, curSchema);
@@ -38,7 +38,7 @@ function createSchema(app, config){
 
     app.set('database', database);
     console.log('database obj added to the app obj as an attribute.');
-}
+};
 
 module.exports = database;
 
