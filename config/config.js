@@ -4,11 +4,13 @@ module.exports = {
     db_url:"mongodb://leedo01219:Jun1452563#@ds249605.mlab.com:49605/heroku_bmbp7spr",
     db_schemas:[
         {file:"./user_schema",collection:"users",schemaName:"UserSchema",modelName:"UserModel"}
-        //,{file:"./post_schema",collection:"post",schemaName:"PostSchema",modelName:"PostModel"}
+        ,{file:"./post_schema",collection:"posts",schemaName:"PostSchema",modelName:"PostModel"}
     ],
     route_info:[
+        /*
         {file:'./post',path:'/process/addpost',method:'addpost',type:'post'}
         ,{file:'./post',path:'/process/showpost/:id',method:'showpost',type:'get'}
+        */
     ],
     facebook:{
         clientID:"1115438201923916",
