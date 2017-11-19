@@ -4,7 +4,6 @@ var SchemaObj = {};
 
 SchemaObj.createSchema = function(mongoose){
     var PostSchema = mongoose.Schema({
-        /*
         title:{type:String,trim:true,'default':''}
         ,contents:{type:String,trim:true,'default':''}
         ,writer:{type:mongoose.Schema.ObjectId,ref:'users'}
@@ -16,10 +15,8 @@ SchemaObj.createSchema = function(mongoose){
             ,writer:{type:mongoose.Schema.ObjectId,ref:'users'}
             ,created_at:{type:Date,'default':Date.now}            
         }]
-        */
     });
 
-    /*
     PostSchema.path('title').required(true,'You must enter the title!');
     PostSchema.path('contents').required(true,'You must enter the contents!');
 
@@ -75,7 +72,6 @@ SchemaObj.createSchema = function(mongoose){
         }
     };
     console.log('PostSchema defined.');
-    */
     return PostSchema;
 };
 
