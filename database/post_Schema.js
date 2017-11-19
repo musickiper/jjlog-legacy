@@ -1,8 +1,8 @@
 var utils = require('../utils/utils');
 
-var Schema = {};
+var SchemaObj = {};
 
-Schema.createSchema = function(mongoose){
+SchemaObj.createSchema = function(mongoose){
     var PostSchema = mongoose.Schema({
         title:{type:String,trim:true,'default':''}
         ,contents:{type:String,trim:true,'default':''}
@@ -75,4 +75,4 @@ Schema.createSchema = function(mongoose){
     return PostSchema;
 };
 
-module.exports = Schema;
+module.exports = SchemaObj;
