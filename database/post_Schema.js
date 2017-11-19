@@ -3,7 +3,6 @@ var utils = require('../utils/utils');
 var PostSchema = {};
 
 PostSchema.createSchema = function(mongoose){
-
     var PostSchema = mongoose.Schema({
         title:{type:String,trim:true,'default':''}
         ,contents:{type:String,trim:true,'default':''}
@@ -17,7 +16,7 @@ PostSchema.createSchema = function(mongoose){
             ,created_at:{type:Date,'default':Date.now}            
         }]
     });
-
+    /*
     PostSchema.path('title').required(true,'You must enter the title!');
     PostSchema.path('contents').required(true,'You must enter the contents!');
 
@@ -72,7 +71,7 @@ PostSchema.createSchema = function(mongoose){
                 .exec(callback);
         }
     };
-    
+   */ 
     console.log('PostSchema defined.');
 
     return PostSchema;
