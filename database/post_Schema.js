@@ -17,6 +17,7 @@ SchemaObj.createSchema = function(mongoose){
         }]
     });
 
+    /*
     PostSchema.path('title').required(true,'You must enter the title!');
     PostSchema.path('contents').required(true,'You must enter the contents!');
 
@@ -72,7 +73,7 @@ SchemaObj.createSchema = function(mongoose){
         }
     };
     console.log('PostSchema defined.');
-
+    */
     return PostSchema;
 };
 

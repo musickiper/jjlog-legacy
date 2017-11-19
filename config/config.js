@@ -7,10 +7,8 @@ module.exports = {
         ,{file:"./post_schema",collection:"posts",schemaName:"PostSchema",modelName:"PostModel"}
     ],
     route_info:[
-        /*
         {file:'./post',path:'/process/addpost',method:'addpost',type:'post'}
         ,{file:'./post',path:'/process/showpost/:id',method:'showpost',type:'get'}
-        */
     ],
     facebook:{
         clientID:"1115438201923916",
