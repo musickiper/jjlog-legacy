@@ -1,3 +1,4 @@
+/*
 exports.indexOf = function(arr,obj){
     var index = -1;
     var keys = Object.keys(obj);
@@ -19,3 +20,4 @@ exports.indexOf = function(arr,obj){
 
     return index;
 }
+*/
