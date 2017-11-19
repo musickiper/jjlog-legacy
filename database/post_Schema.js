@@ -4,6 +4,7 @@ var SchemaObj = {};
 
 SchemaObj.createSchema = function(mongoose){
     var PostSchema = mongoose.Schema({
+        /*
         title:{type:String,trim:true,'default':''}
         ,contents:{type:String,trim:true,'default':''}
         ,writer:{type:mongoose.Schema.ObjectId,ref:'users'}
@@ -15,6 +16,7 @@ SchemaObj.createSchema = function(mongoose){
             ,writer:{type:mongoose.Schema.ObjectId,ref:'users'}
             ,created_at:{type:Date,'default':Date.now}            
         }]
+        */
     });
 
     /*
