@@ -4,7 +4,7 @@ var PostSchema = {};
 
 PostSchema.createSchema = function(mongoose){
     var PostSchema = mongoose.Schema({
-        title:{type:String,trim:true,'default':''}
+        title:{type:String}
         /*
         ,contents:{type:String,trim:true,'default':''}
         ,writer:{type:mongoose.Schema.ObjectId,ref:'users'}
