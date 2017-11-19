@@ -16,10 +16,8 @@ Schema.createSchema = function(mongoose){
             ,created_at:{type:Date,'default':Date.now}            
         }]
     });
-    /*
     PostSchema.path('title').required(true,'You must enter the title!');
     PostSchema.path('contents').required(true,'You must enter the contents!');
-    */
 
     PostSchema.methods = {
         savePost:function(callback){
