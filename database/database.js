@@ -28,7 +28,7 @@ function createSchema(app, config){
     for(var i = 0; i < schemaLen; i++){
         var curItem = config.db_schemas[i];
 
-        var curSchema = require(curItem.file).createUserSchema(mongoose);
+        var curSchema = require(curItem.file).createSchema(mongoose);
         var curModel = mongoose.model(curItem.collection, curSchema);
 
         database[curItem.schemaName] = curSchema;

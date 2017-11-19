@@ -37,7 +37,7 @@ console.log('View engine is set : ejs');
 /*----------Middlewares for basic setting----------*/
 
 //the middleware set for connecting to the files using specific path.
-app.use('/', static(path.join(__dirname, "html")));
+app.use('/', static(path.join(__dirname, "public")));
 
 //the middleware for using information through post method.
 app.use(bodyParser.urlencoded({extended:false}));
@@ -122,7 +122,7 @@ app.use('/',router);
 //Error handling.
 var errorHandler = expressErrorHandler({
     static:{
-        '404':'./html/404.html'
+        '404':'./public/404.html'
     }
 });
 

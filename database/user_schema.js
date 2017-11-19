@@ -2,7 +2,7 @@ var crypto = require('crypto');
 
 var Schema = {};
 
-Schema.createUserSchema = function(mongoose){
+Schema.createSchema = function(mongoose){
 
     var UserSchema = mongoose.Schema({
         id:{type:String,'default':''}

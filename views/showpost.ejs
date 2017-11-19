@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+        <title>Show Post</title>
+
+        <!--Jquery-->
+        <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+        <!--cleditor-->
+        <link rel="stylesheet" href="../public/cleditor/jquery.cleditor.css">
+        <script src="../public/cleditor/jquery.cleditor.js"></script>
+        <script src="../public/cleditor/jquery.cleditor.min.js"></script>
+
+        <!--Semantic Ui-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+
+        <script>
+            $(function(){
+                $('#contextsOutput').cleditor();
+            })
+        </script>
+
+    </head>
+    <body>
+        <div class="ui blue fluid card">
+            <div class="content">
+                <%
+                    var curTitle = posts._doc.title;
+                    var curContents = posts._doc.contents;
+                    var curWriter = posts._doc.writer.id;
+
+                    var entities = new Entities();
+                    var decodedContents = entities.decode(curContents);
+                %>
+
+                <div id="titleOutput" class="header"><%=curTitle%></div>
+                <div class="meta">
+                    <span class="right floated time">1 day ago</span>
+                    <span class="category">Regular</span>
+                </div>
+                <div id="contentsOutput" class="description">
+                    <%=decodedContents%>
+                </div>
+            </div>
+            <div class="extra content">
+                <div class="right floated author">
+                    <img class="ui avatar image" src="/images/author.png"><%=curWriter%>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
