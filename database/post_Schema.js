@@ -5,6 +5,7 @@ var PostSchema = {};
 PostSchema.createSchema = function(mongoose){
     var PostSchema = mongoose.Schema({
         title:{type:String,trim:true,'default':''}
+        /*
         ,contents:{type:String,trim:true,'default':''}
         ,writer:{type:mongoose.Schema.ObjectId,ref:'users'}
         ,tags:{type:[],'default':''}
@@ -15,10 +16,12 @@ PostSchema.createSchema = function(mongoose){
             ,writer:{type:mongoose.Schema.ObjectId,ref:'users'}
             ,created_at:{type:Date,'default':Date.now}            
         }]
+        */
     });
     /*
     PostSchema.path('title').required(true,'You must enter the title!');
     PostSchema.path('contents').required(true,'You must enter the contents!');
+    */
 
     PostSchema.methods = {
         savePost:function(callback){
@@ -71,7 +74,6 @@ PostSchema.createSchema = function(mongoose){
                 .exec(callback);
         }
     };
-   */ 
     console.log('PostSchema defined.');
 
     return PostSchema;
