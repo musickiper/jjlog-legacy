@@ -5,7 +5,6 @@ module.exports = {
     db_schemas:[
         {file:"./user_schema",collection:"users",schemaName:"UserSchema",modelName:"UserModel"}
         ,{file:"./posts_schema",collection:"posts",schemaName:"PostSchema",modelName:"PostModel"}
-        ,{file:"./user2_schema", collection:"users2",schemaName:"UserSchema2",modelName:"UserModel2"}
     ],
     route_info:[
         {file:'./post',path:'/process/addpost',method:'addpost',type:'post'}
