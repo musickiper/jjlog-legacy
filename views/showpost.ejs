@@ -11,22 +11,22 @@
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
         crossorigin="anonymous"></script>
 
-        <script>
-            $(function(){
-                $('#contentsOutput').cleditor;
-            });
-        </script>
-
-
-        <!--cleditor-->
-        <script src="/cleditor/jquery.cleditor.js"></script>
-        <script src="/cleditor/jquery.cleditor.min.js"></script>
-        <link rel="stylesheet" href="/cleditor/jquery.cleditor.css">
+        <!--ckeditor-->
+        <script src="https://cdn.ckeditor.com/4.7.3/standard-all/ckeditor.js"></script>
 
         <!--Semantic Ui-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+
+        <script>
+            $(function(){
+                CKEDITOR.env.isCompatible = true;
+                CKEDITOR.replace('contentsOutput');
+                CKEDITOR.config.height = '330px';
+                CKEDITOR.config.width = '100%';
+            });
+        </script>
 
     </head>
     <body>
@@ -41,14 +41,20 @@
                     var decodedContents = entities.decode(curContents);
                 %>
 
-                <div id="titleOutput" class="header"><%=curTitle%></div>
+                <div id="titleOutput" class="header"><h2><%=curTitle%></h2></div>
                 <div class="meta">
+                    <br>
                     <span class="right floated time">1 day ago</span>
-                    <span class="category">Regular</span>
+                    <span class="category">Regular Post</span>
                 </div>
+                <!--
                 <div id="contentsOutput" class="description">
                     <%=decodedContents%>
                 </div>
+                -->
+                <textarea class="description" id="contentsOutput" name="contentsOutput" rows="10" cols="80" readonly>
+                    <%=decodedContents%>
+                </textarea>
             </div>
             <div class="extra content">
                 <div class="right floated author">

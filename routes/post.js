@@ -1,4 +1,4 @@
-var entities = require('html-entities').XmlEntities;
+var entities = require('html-entities').AllHtmlEntities;
 
 var addpost = function(req,res){
     console.log("post's addpost called.");
@@ -79,8 +79,6 @@ var showpost = function(req,res){
 
                 req.app.render('showpost',context,function(err,html){
                     if(err) throw err;
-
-                    //console.log('res html : ' + html);
 
                     res.end(html);
                 });
