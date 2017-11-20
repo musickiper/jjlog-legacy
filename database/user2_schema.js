@@ -1,3 +1,4 @@
+var utils = require('../utils/utils');
 var crypto = require('crypto');
 
 var Schema = {};
