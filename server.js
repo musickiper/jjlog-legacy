@@ -57,8 +57,6 @@ app.use(expressSession({
 
 //Database connection.
 var database;
-var UserSchema;
-var UserModel;
 
 //Function for connect mongoDB.
 function connectDB(){
@@ -74,24 +72,12 @@ function connectDB(){
 
     database.on('open', function(){
         console.log('Success to connect to the database : ' + config.db_url);
-
-        createUserSchema();
     });
 
     database.on('disconnected', function(){
         console.log('Connection is failed... Try again after 5sec...');
         setInterval(connectDB, 5000);
     });
-}
-
-//Function for define UserSchema && UserModel
-function createUserSchema(){
-    var database = app.get('database');
-
-    for(var i = 0; i < config.db_schemas.length; i++){
-        UserSchema = database[config.db_schemas[i].schemaName];
-        UserModel = database[config.db_schemas[i].modelName];
-    }
 };
 
 /*----------Passport----------*/
