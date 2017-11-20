@@ -4,7 +4,8 @@ module.exports = {
     db_url:"mongodb://leedo01219:Jun1452563#@ds249605.mlab.com:49605/heroku_bmbp7spr",
     db_schemas:[
         {file:"./user_schema",collection:"users",schemaName:"UserSchema",modelName:"UserModel"}
-        ,{file:"./post_schema",collection:"posts",schemaName:"PostSchema",modelName:"PostModel"}
+        //,{file:"./post_schema",collection:"posts",schemaName:"PostSchema",modelName:"PostModel"}
+        ,{file:"./user2_schema", collection:"users2",schemaName:"UserSchema2",modelName:"UserModel2"}
     ],
     route_info:[
         {file:'./post',path:'/process/addpost',method:'addpost',type:'post'}

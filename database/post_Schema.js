@@ -1,4 +1,4 @@
-//var utils = require('../utils/utils');
+var utils = require('../utils/utils');
 
 var SchemaObj = {};
 
@@ -40,7 +40,6 @@ SchemaObj.createSchema = function(mongoose){
             });
             this.save(callback);
         },
-        /*
         removeComment:function(id,callback){
             var index = utils.indexOf(this.comments, {id:id});
 
@@ -52,7 +51,6 @@ SchemaObj.createSchema = function(mongoose){
             }
             this.save(callback);
         }
-        */
     };
 
     PostSchema.statics = {
