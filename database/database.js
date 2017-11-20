@@ -13,7 +13,7 @@ function connect(app, config){
 
     console.log("Try to connect to the database...");
     mongoose.Promise = global.Promise;
-    var promise = mongoose.connect(databaseUrl, {
+    mongoose.connect(databaseUrl, {
         useMongoClient:true
     });
     database["db"] = mongoose.connection;
