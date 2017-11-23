@@ -87,5 +87,65 @@ var showpost = function(req,res){
     }
 };
 
+var listpost = function(req,res){
+    console.log("post's listpost called.");
+
+    var paramPage = req.body.page || req.query.page;
+    var paramPerPage = req.body.perPage || req.query.perPage;
+
+    var database = req.app.get('database');
+
+    if(database.db){
+        var options = {
+            page:paramPage,
+            perPage:paramPerPage
+        }
+
+        database.PostModel.list(options, function(err,result){
+            if(err){
+                console.error('Error happen when searching BBS lists : ' + err.stack);
+
+                res.writeHead(200,{"Contents-Type":"text/html;charset='utf8'"});
+                res.write('<h2>Error happen when searching BBS lists.</h2>');
+                res.write('<p>' + err.stack + '</p>');
+                res.end();
+
+                return;
+            }
+
+            if(result){
+                database.PostModel.count().exec(function(err,count){
+                    res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
+
+                    var context = {
+                        title:'Contents list',
+                        posts:result,
+                        page:parseInt(paramPage),
+                        pageCount:Math.ceil(count/paramPerPage),
+                        perPage:paramPerPage,
+                        totalRecords:count,
+                        size:paramPerPage
+                    };
+
+                    req.app.render('listpost', context, function(err,html){
+                        if(err){
+                            console.log('Error happen when maiking res web-doc : ' + err.stack);
+
+                            res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
+                            res.write('<h2>Error happen when maiking res web-doc</h2>');
+                            res.write('<p>' + err.stack + '</p>');
+                            res.end();
+
+                            return;
+                        }
+                        res.end(html);
+                    });
+                });                    
+            }
+        });
+    }
+};
+
 module.exports.addpost = addpost;
 module.exports.showpost = showpost;
+module.exports.listpost = listpost;

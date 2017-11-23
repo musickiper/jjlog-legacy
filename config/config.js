@@ -9,6 +9,8 @@ module.exports = {
     route_info:[
         {file:'./post',path:'/process/addpost',method:'addpost',type:'post'}
         ,{file:'./post',path:'/process/showpost/:id',method:'showpost',type:'get'}
+        ,{file:'./post',path:'/process/listpost',method:'listpost',type:'get'}
+        ,{file:'./post',path:'/process/listpost',method:'listpost',type:'post'}
     ],
     facebook:{
         clientID:"1115438201923916",
