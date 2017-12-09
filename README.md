@@ -1,4 +1,6 @@
-"Yonsung's Wonderful Website"
+"#project1"
+
+- Private Website -
 
 Hello my friends!!
 
@@ -13,3 +15,5 @@ Unfortunately, it is still on costruction ;(
 However, I am going to finish to make the prototype of my website as soon as possible :)
 
 Please, expect how wonderful website will be made by me lol
+
+To see the website, ===> https://younsung-project1.herokuapp.com/
