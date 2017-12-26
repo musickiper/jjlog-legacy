@@ -34,12 +34,10 @@ var userPassport = require('./routes/user_passport');
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-/*
-//Set view layout
+//Set ejs-view layout
 app.set('layout', 'layouts/layout');
 app.set("layout extractScripts",true);
 app.use(expressLayouts);
-*/
 
 console.log('View engine is set : ejs');
 

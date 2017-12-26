@@ -1,71 +1,24 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Home Page</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-        <link rel="stylesheet" href="/css/default.css">
-        <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <header>
-            <div class="card">
-                <div class="card-header">
-                    <h1>Younsung Jung Portfolio</h1>
-                    <div style="text-align:right">Welcome <a href="/profile"><%=user.name%></a>! </div>
-                </div>
-            </div>
-        </header>
-        <nav>
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" href="/">Main</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Works</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/c">C</a>
-                        <a class="dropdown-item" href="/cpp">C++</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/htmlcss">HTML/CSS</a>
-                        <a class="dropdown-item" href="/nodejs">NodeJS</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">ETC</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact Me</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="container">
-            <div class="page-header text-center">
-                <h3><span class="fa fa-anchor"></span>User Profile</h3>
-                <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-                <a href="#" class="btn btn-default btn-sm">Change Password</a>
-            </div>
+<br>
+<div class="page-header text-right">
+        Welcome <a href="/profile"><%=user.name%></a>!
+</div>
+<hr>
+<div class="page-header text-center">
+    <h3><span class="fa fa-anchor"></span>User Profile</h3>
+    <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    <a href="#" class="btn btn-default btn-sm">Change Password</a>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="well">
             <br>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="well">
-                        <br>
-                        <p>
-                            <strong>Name</strong> : <%=user.name%><br><br>
-                            <strong>Email</strong> : <%=user.email%>
-                        </p>
-                        <br>
-                    </div>
-                </div>
-            </div>
+            <p>
+                <strong>Name</strong> : <%=user.name%><br><br>
+                <strong>Email</strong> : <%=user.email%>
+            </p>
+            <br>
         </div>
-        <footer>
-            <div class="card-footer text-muted">
-                <h6>@2017 - Younsung Jung</h6>
-            </div>
-        </footer>
-    </body>
-</html>
+    </div>
+</div>
+<br>

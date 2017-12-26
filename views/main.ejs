@@ -1,110 +1,63 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Home Page</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-        <link rel="stylesheet" href="/css/default.css">
-        <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <header>
-            <div class="card">
-                <div class="card-header">
-                    <h1>Younsung Jung Portfolio</h1>
-                </div>
-            </div>
-        </header>
-        <nav>
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" href="/">Main</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Works</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/c">C</a>
-                        <a class="dropdown-item" href="/cpp">C++</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/htmlcss">HTML/CSS</a>
-                        <a class="dropdown-item" href="/nodejs">NodeJS</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">ETC</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact Me</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="container">
+<br>
+<div class="page-header text-right">
+    <% if(user){%>
+    Welcome <a href="/profile"><%=user.name%></a>!
+    <%}%>
+</div>
+<div class="row">            
+    <aside class="col-md-3">
+        <div style="text-align: center">
+            <h4>Profile</h4>
             <br>
-            <div class="row">
-                <aside class="col-md-3">
-                    <div style="text-align: center">
-                        <h4>Profile</h4>
-                        <br>
-                        <img src="/images/profile.jpg" height="150em">
-                        <div>
-                            <p><h5>Younsung Jung</h5></p>
-                            <p>Seneca College Student<br>(CPA)</p>
-                            <p><img src="/images/where.png"> Toronto, CA</p>
-                            <p>Hi, I'm a student born in South Korea and currently living in Toronto, CA.</p>
-                            <p>I'm studying programming at Seneca College.</p>
-                            <p>Linked In: <a href="https://www.linkedin.com/in/younsung-jung-b45404139/">Click Here</a></p>
-                            <p>Git Hub: <a href="https://github.com/musickiper">Click Here</a></p>
-                        </div>
-                    </div>
-                </aside>
-                <section class="main col-md-9">
-                    <article style="text-align: center">
-                        <hr>
-                        <h2>Introduction</h2>
-                        <br>
-                        <p>Hi, I'm a student born in South Korea and currently living in Toronto, CA.</p>
-                        <p>I'm studying programming at Seneca College.</p>
-                        <p>I'm taking the third semester at Seneca College as a Computer Porogramming and Analysis student.</p>
-                        <p>For one year at Seneca, I've learned the concept of C, C++, DB2, ORACLE DB, POSTGRE SQL, MONGODB ,LINUX, HTML/CSS, JAVASCRIPT, NODEJS and TCP/IP</p>
-                        <p>Furthermore, I'm studying JAVA and ANGULAR2 by myself.</p>
-                        <p>You can see what I've learned and What I've done by myself through this web site.</p>
-                        <p>You can also find my online resume here:<br><a href="https://github.com/musickiper/Younsung-s/blob/master/resume_YounsungJung.pdf">RESUME HERE</a></p>
-                        <hr>
-                        <h4>Skill Summary</h4>
-                        <br>
-                        <ul>
-                            <li>IDE / Tools: Eclipse, IntelliJ, Visual Studio Code, Visual Studio 2017, Vim, Notepad++, Android Studio</li>
-                            <li>Languages: C, C++, C#, Java, JavaScript (Node.js), HTML5, CSS3, Bootstrap</li>
-                            <li>Databases: IBM DB2, MySQL, Oracle SQL, MongoDB, PostgreSQL</li>
-                            <li>Strength in web applications using JavaScript, HTML5, and CSS3</li>
-                            <li>Strength in web server-side programming using node.js</li>
-                            <li>Strength in Object Oriented Programming language, especially C++</li>
-                            <li>Concrete understanding of Network OSI Model, TCP/IP, and IP addressing</li>
-                            <li>Strong MS Office skills - Word, Outlook, Excel and PowerPoint</li>
-                        </ul>
-                        <hr>
-                        <h4>Education</h4>
-                        <p>Computer Programming and Analysis (Optional Co-op)   Jan 2017 - Present<br>Seneca College, North York, ON</p>
-                        <hr>
-                        <h4>Projects</h4>
-                        <ul>
-                            <li>Produced ‘Grocery Store Inventory System’, a simple inventory program, using C, which can keep track of items available in the inventory and make sure the quantity of the items does not fall below a specific count.
-                            <li>Created ‘Aid Management Console Application’, using C++, which is be able to keep track of the quantity of items needed, the quantity on hand, and store them in a file for future use.</li>
-                            <li>Created a simple website using HTML5, Bootstrap, Node.js/express.js and PostgreSQL.</li>
-                            <li>Created a private portfolio website using HTML5, Bootstrap, Node.js/express.js, MongoDB/mongoose, Angular.</li>
-                        </ul>
-                        <hr>
-                    </article>
-                </section>
+            <img src="/images/profile.jpg" height="150em">
+            <div>
+                <p><h5>Younsung Jung</h5></p>
+                <p>Seneca College Student<br>(CPA)</p>
+                <p><img src="/images/where.png"> Toronto, CA</p>
+                <p>Hi, I'm a student born in South Korea and currently living in Toronto, CA.</p>
+                <p>I'm studying programming at Seneca College.</p>
+                <p>Linked In: <a href="https://www.linkedin.com/in/younsung-jung-b45404139/">Click Here</a></p>
+                <p>Git Hub: <a href="https://github.com/musickiper">Click Here</a></p>
             </div>
         </div>
-        <footer>
-            <div class="card-footer text-muted">
-                <h6>@2017 - Younsung Jung</h6>
-            </div>
-        </footer>
-    </body>
-</html>
+    </aside>
+    <section class="main col-md-9">
+        <article style="text-align: center">
+            <hr>
+            <h2>Introduction</h2>
+            <br>
+            <p>Hi, I'm a student born in South Korea and currently living in Toronto, CA.</p>
+            <p>I'm studying programming at Seneca College.</p>
+            <p>I'm taking the third semester at Seneca College as a Computer Porogramming and Analysis student.</p>
+            <p>For one year at Seneca, I've learned the concept of C, C++, DB2, ORACLE DB, POSTGRE SQL, MONGODB ,LINUX, HTML/CSS, JAVASCRIPT, NODEJS and TCP/IP</p>
+            <p>Furthermore, I'm studying JAVA and ANGULAR2 by myself.</p>
+            <p>You can see what I've learned and What I've done by myself through this web site.</p>
+            <p>You can also find my online resume here:<br><a href="https://github.com/musickiper/Younsung-s/blob/master/resume_YounsungJung.pdf">RESUME HERE</a></p>
+            <hr>
+            <h4>Skill Summary</h4>
+            <br>
+            <ul>
+                <li>IDE / Tools: Eclipse, IntelliJ, Visual Studio Code, Visual Studio 2017, Vim, Notepad++, Android Studio</li>
+                <li>Languages: C, C++, C#, Java, JavaScript (Node.js), HTML5, CSS3, Bootstrap</li>
+                <li>Databases: IBM DB2, MySQL, Oracle SQL, MongoDB, PostgreSQL</li>
+                <li>Strength in web applications using JavaScript, HTML5, and CSS3</li>
+                <li>Strength in web server-side programming using node.js</li>
+                <li>Strength in Object Oriented Programming language, especially C++</li>
+                <li>Concrete understanding of Network OSI Model, TCP/IP, and IP addressing</li>
+                <li>Strong MS Office skills - Word, Outlook, Excel and PowerPoint</li>
+            </ul>
+            <hr>
+            <h4>Education</h4>
+            <p>Computer Programming and Analysis (Optional Co-op)   Jan 2017 - Present<br>Seneca College, North York, ON</p>
+            <hr>
+            <h4>Projects</h4>
+            <ul>
+                <li>Produced ‘Grocery Store Inventory System’, a simple inventory program, using C, which can keep track of items available in the inventory and make sure the quantity of the items does not fall below a specific count.
+                <li>Created ‘Aid Management Console Application’, using C++, which is be able to keep track of the quantity of items needed, the quantity on hand, and store them in a file for future use.</li>
+                <li>Created a simple website using HTML5, Bootstrap, Node.js/express.js and PostgreSQL.</li>
+                <li>Created a private portfolio website using HTML5, Bootstrap, Node.js/express.js, MongoDB/mongoose, Angular.</li>
+            </ul>
+            <hr>
+        </article>
+    </section>
+</div>
