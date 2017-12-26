@@ -1,10 +1,10 @@
 module.exports = function(app, passport){
     console.log('user_passport called.');
 
-    //Home page - index.ejs
-    app.get('/', function(req,res){
+    //Confirm Login Page
+    app.get('/confirmLogin', function(req,res){
         console.log('/ path called.');
-        res.render('index.ejs');
+        res.render('confirmLogin.ejs');
     });
 
     //Login form linkage.
@@ -58,7 +58,7 @@ module.exports = function(app, passport){
 
     //Getting information from login form called above as post method, and autheticate using passport.
     app.post('/login', passport.authenticate('local-login', {
-        successRedirect:'/profile',
+        successRedirect:'/',
         failureRedirect:'/login',
         failureFlash:true
     }));
