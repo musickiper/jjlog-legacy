@@ -2,7 +2,7 @@ var showMain = (req,res)=>{
     console.log('/ path called.');
 
     if(!req.user){
-        res.render("main.ejs");
+        res.render("main.ejs",{user:""});
     }
     else if(req.user[0]){
         res.render("main.ejs",{user:req.user[0]});
