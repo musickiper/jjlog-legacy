@@ -14,7 +14,7 @@ var showCList = (req,res)=>{
     }
 
     console.log('user authorizing is succeed.');
-    res.render('cList.ejs',{user:req.user});
+    res.render('cList.ejs',{user:req.user[0]});
 }
 
 module.exports.showMain = showMain;
