@@ -65,7 +65,7 @@ module.exports = function(app, passport){
 
     //Getting information from signup form called above as post method, and autheticate using passport.
     app.post('/signup', passport.authenticate('local-signup',{
-        successRedirect:'/profile',
+        successRedirect:'/',
         failureRedirect:'/signup',
         failureFlash:true
     }));
