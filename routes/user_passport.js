@@ -52,8 +52,8 @@ module.exports = function(app, passport){
     }));
     //Facebook Auth callback
     app.get('/auth/facebook/callback', passport.authenticate('facebook',{
-        successRedirect:'/profile',
-        failureRedirect:'/'
+        successRedirect:'/',
+        failureRedirect:'/login'
     }));
 
     //Getting information from login form called above as post method, and autheticate using passport.
