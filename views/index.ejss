@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+        <title>Home page</title>
+
+        <!--Jquery-->
+        <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+
+        <!--Font-->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+        <!--Bootstrap-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+        <!--Semantic Ui-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+
+        <!-- -->
+        <style>
+            body{padding-top:80px;}
+            h1, p, a{font-family:'Open Sans', sans-serif;}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="jumbotron text-center">
+                <h1><span class="fa fa-shopping-cart">Home page</span></h1>
+                <br>
+                <p>Login</p>
+                <p>If you don't have an account, sign up!</p>
+                <br>
+                <a href="/login" class="btn btn-default">
+                    <span class="fa fa-user"></span>Login
+                </a>
+                <a href="/signup" class="btn btn-default">
+                    <span class="fa fa-user"></span>Sign up
+                </a>
+                <br><br>
+                <a href="/auth/facebook" class="btn btn-primary">
+                    <span class="fa fa-facebook"></span> Login with Facebook
+                </a>
+            </div>
+        </div>
+    </body>
+</html>

@@ -18,6 +18,7 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 var passport = require('passport');
 var flash = require('connect-flash');
+var expressLayouts = require('express-ejs-layouts');
 
 //Import modules made by me.
 //var user = require('./routes/user');
@@ -32,6 +33,14 @@ var userPassport = require('./routes/user_passport');
 //Set view engine.
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+
+/*
+//Set view layout
+app.set('layout', 'layouts/layout');
+app.set("layout extractScripts",true);
+app.use(expressLayouts);
+*/
+
 console.log('View engine is set : ejs');
 
 /*----------Middlewares for basic setting----------*/
