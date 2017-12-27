@@ -9,6 +9,8 @@ module.exports = {
     route_info:[
         {file:'./form',path:'/',method:'showMain',type:'get'}
         ,{file:'./form',path:'/c',method:'showCList',type:'get'}
+        ,{file:'./form',path:'/contactMe',method:'contactMe',type:'get'}
+        ,{file:'./form',path:'/sendContactMe',method:'sendContactMe',type:'post'}
         ,{file:'./post',path:'/process/addpost',method:'addpost',type:'post'}
         ,{file:'./post',path:'/process/showpost/:id',method:'showpost',type:'get'}
         ,{file:'./post',path:'/process/listpost',method:'listpost',type:'get'}

@@ -57,7 +57,7 @@ app.use(cookieParser());
 app.use(expressSession({
     secret:'my key',
     resave:true,
-    saveUninitialized:true
+    saveUninitialized:true,
 }));
 
 /*----------DataBase(MongoDB)----------*/

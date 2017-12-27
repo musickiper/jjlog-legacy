@@ -1,0 +1,52 @@
+<br>
+<div class="page-header text-right">
+    <% if(user != ""){%>
+    Welcome <a href="/profile"><%=user.name%></a>!
+    <%}%>
+</div>
+<hr>
+<div class="row">
+	<div class="col-md-12">
+		<h3>To Younsung</h3>
+        <form action="/sendContactMe" method="post">
+			<div class="well">
+				<div class="row">
+					<div class="col-md-6">
+                        <%if (user == ""){%>
+                        <input type="text" class="form-control" placeholder="Name" name="userName">
+                        <%}else{%>
+                        <input type="text" class="form-control" placeholder="Name" name="userName" value="<%=user.name%>" readonly>
+                        <%}%>
+						<br>
+					</div>
+					<div class="col-md-6">
+                        <%if (user == ""){%>
+						<input type="email" class="form-control" placeholder="Email" name="userEmail" />
+                        <%}else{%>
+						<input type="email" class="form-control" placeholder="Email" name="userEmail" value="<%=user.email%>" readonly/>
+                        <%}%>
+						<br />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<input type="text" class="form-control" placeholder="Subject" name="userSubject" />
+						<br />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<textarea class="form-control" rows="8" placeholder="Comment" name="commentText"></textarea>
+						<br />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2 col-md-offset-10">
+						<button type="submit"class="btn btn-primary form-control">Send</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<br>
