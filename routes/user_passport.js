@@ -4,19 +4,19 @@ module.exports = function(app, passport){
     //Confirm Login Page
     app.get('/confirmLogin', function(req,res){
         console.log('/ path called.');
-        res.render('confirmLogin.ejs');
+        res.render('confirmLogin.ejs',{user:""});
     });
 
     //Login form linkage.
     app.get('/login', function(req,res){
         console.log('/login path called.');
-        res.render('login.ejs', {message:req.flash('loginMessage')});
+        res.render('login.ejs', {message:req.flash('loginMessage'),user:""});
     });
 
     //Sign up form linkage.
     app.get('/signup', function(req,res){
         console.log('/signup path called.');
-        res.render('signup.ejs',{message:req.flash('signupMessage')});
+        res.render('signup.ejs',{message:req.flash('signupMessage'),user:""});
     });
     //Profile page
 
@@ -25,7 +25,7 @@ module.exports = function(app, passport){
 
         if(!req.user){
             console.log('user authorizing is failed.');
-            res.redirect('/');
+            res.render('main',{user:""});
             return;
         }
 
@@ -42,7 +42,7 @@ module.exports = function(app, passport){
     app.get('/logout', function(req,res){
         console.log('/logout path called.');
         req.logout();
-        res.redirect('/');
+        res.render('main',{user:""});
     });
 
     //Facebook Auth
