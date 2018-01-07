@@ -52,7 +52,7 @@ module.exports = function(app, passport){
     }));
     //Facebook Auth callback
     app.get('/auth/facebook/callback', passport.authenticate('facebook',{
-        successRedirect:'/',
+        successRedirect:'./',
         failureRedirect:'/login'
     }));
 
