@@ -3,21 +3,19 @@ var nodemailer = require('nodemailer');
 var showMain = (req,res)=>{
     console.log('/ path called.');
 
-    if(!req.user){
+    if(!req.session.passport){
         res.render("main.ejs",{user:""});
     }
-    else if(req.user[0]){
-        res.render("main.ejs",{user:req.user[0]});
-    }
     else{
-        res.render("main.ejs",{user:req.user});
+        res.writeHead(200,{"Content-Type":"text/html;charset='UTF8'"});
+        res.render("main.ejs",{user:req.session.passport.user});
     }
 }
 
 var showCList = (req,res)=>{
     console.log('/showCList path called.');
 
-    if(!req.user){
+    if(!req.session.passport){
         console.log('user authorizing is failed.');
         res.redirect('/confirmLogin');
         return;
@@ -25,25 +23,19 @@ var showCList = (req,res)=>{
 
     console.log('user authorizing is succeed.');
 
-    if(req.user[0]){
-        res.render('cList.ejs',{user:req.user[0]});
-    }
-    else{
-        res.render('cList.ejs',{user:req.user});
+    if(req.session.passport){
+        res.render('cList.ejs',{user:req.session.passport.user});
     }
 }
 
 var contactMe = (req,res)=>{
     console.log('/contactMe path called.');
 
-    if(!req.user){
+    if(!req.session.passport){
         res.render("contactMe.ejs",{user:""});
     }
-    else if(req.user[0]){
-        res.render("contactMe.ejs",{user:req.user[0]});
-    }
     else{
-        res.render("contactMe.ejs",{user:req.user});
+        res.render("contactMe.ejs",{user:req.session.passport.user});
     }
 }
 
