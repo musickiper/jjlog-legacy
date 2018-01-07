@@ -7,7 +7,7 @@ var showMain = (req,res)=>{
         res.render("main.ejs",{user:""});
     }
     else if(req.user[0]){
-        res.render("main.ejs",{user:req.user[0]});
+        res.render("main.ejs",{user:req.user[0],session:req.session});
     }
     else{
         res.render("main.ejs",{user:req.user});

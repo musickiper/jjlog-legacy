@@ -55,7 +55,7 @@ var addpost = function(req,res){
 
                 console.log('Post added : ' + post._id);
 
-                return res.redirect('/process/showpost/' + post._id);
+                return res.redirect('/showpost/' + post._id);
             });
         });
     }
@@ -83,6 +83,11 @@ var showpost = function(req,res){
             }
 
             if(result){
+
+                console.dir(result);
+
+                res.render('showpost', {title:'Search',posts:result,Entities:entities});
+                /*
                 res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
 
                 var context = {
@@ -96,6 +101,7 @@ var showpost = function(req,res){
 
                     res.end(html);
                 });
+                */
             }
         });
     }

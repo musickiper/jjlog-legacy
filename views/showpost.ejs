@@ -1,66 +1,26 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
-        <title>Show Post</title>
+<br>
+<hr>
+<div class="row">
+<div class="ui blue fluid card">
+    <div class="content">
+        <%
+            var curTitle = posts._doc.title;
+            var curContents = posts._doc.contents;
+            var curWriter = posts._doc.writer.id;
 
-        <!--Jquery-->
-        <script
-        src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-        crossorigin="anonymous"></script>
+            var entities = new Entities();
+            var decodedContents = entities.decode(curContents);
+        %>
 
-        <!--ckeditor-->
-        <script src="https://cdn.ckeditor.com/4.7.3/standard-all/ckeditor.js"></script>
-
-        <!--Semantic Ui-->
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
-
-        <script>
-            $(function(){
-                CKEDITOR.env.isCompatible = true;
-                CKEDITOR.replace('contentsOutput');
-                CKEDITOR.config.height = '330px';
-                CKEDITOR.config.width = '100%';
-            });
-        </script>
-
-    </head>
-    <body>
-        <div class="ui blue fluid card">
-            <div class="content">
-                <%
-                    var curTitle = posts._doc.title;
-                    var curContents = posts._doc.contents;
-                    var curWriter = posts._doc.writer.id;
-
-                    var entities = new Entities();
-                    var decodedContents = entities.decode(curContents);
-                %>
-
-                <div id="titleOutput" class="header"><h2><%=curTitle%></h2></div>
-                <div class="meta">
-                    <br>
-                    <span class="right floated time">1 day ago</span>
-                    <span class="category">Regular Post</span>
-                </div>
-                <!--
-                <div id="contentsOutput" class="description">
-                    <%=decodedContents%>
-                </div>
-                -->
-                <textarea class="description" id="contentsOutput" name="contentsOutput" rows="10" cols="80" readonly>
-                    <%=decodedContents%>
-                </textarea>
-            </div>
-            <div class="extra content">
-                <div class="right floated author">
-                    <img class="ui avatar image" src="/images/author.png"><%=curWriter%>
-                </div>
-            </div>
+        <div id="titleOutput" class="header"><h2><%=curTitle%></h2></div>
+        <div class="meta">
+            <br>
+            <span class="right floated time">1 day ago</span>
+            <span class="category">Regular Post</span>
         </div>
-    </body>
-</html>
+        <textarea class="description" id="contentsOutput" name="contentsOutput" rows="10" cols="80" readonly>
+            <%=decodedContents%>
+        </textarea>
+    </div>
+</div>
+</div>
