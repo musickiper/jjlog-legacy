@@ -1,0 +1,36 @@
+<!--ckeditor-->
+<script src="https://cdn.ckeditor.com/4.7.3/standard-all/ckeditor.js"></script>
+<script>
+    $(function(){
+        CKEDITOR.config.extraPlugins = 'colorbutton';
+        CKEDITOR.env.isCompatible = true;
+        CKEDITOR.replace('contents');
+        CKEDITOR.config.height = '330px';
+        CKEDITOR.config.width = '100%';
+    });
+</script>
+
+<br>
+<hr>
+<div class="row">
+	<div class="col-md-12">
+        <form class="content ui form" method="post" action="/process/addpost">
+            <h1>Add Post</h4>
+            <div class="form-group">
+                <input type="hidden" name="writer" id="writer" value="<%=user.email%>" readonly>
+            </div>
+            <div class="form-group">
+                <label for="title"><h5>Title</h5></label>
+                <input type="text" name="title" placeholder="Enter title here." class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="contents"><h5>Contents</h5></label>
+                <textarea id="contents" name="contents" rows="10" cols="80" required></textarea>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-secondary" type="submit" value="Add" name="">
+                <input class="btn btn-secondary" type="button" value="Cancel" name="" onclick="javascript:history.back()">
+            </div>
+        </form>
+    </div>
+</div>

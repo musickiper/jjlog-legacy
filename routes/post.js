@@ -1,5 +1,19 @@
 var entities = require('html-entities').AllHtmlEntities;
 
+var writepost = function(req,res){
+    console.log('/writepost called');
+
+    if(!req.user){
+        res.render("confirmLogin",{user:""});
+    }
+    else if(req.user[0]){
+        res.render("writepost",{user:req.user[0]});
+    }
+    else{
+        res.render("writepost",{user:req.user});
+    }
+}
+
 var addpost = function(req,res){
     console.log("post's addpost called.");
 
@@ -146,6 +160,7 @@ var listpost = function(req,res){
     }
 };
 
+module.exports.writepost = writepost;
 module.exports.addpost = addpost;
 module.exports.showpost = showpost;
 module.exports.listpost = listpost;
