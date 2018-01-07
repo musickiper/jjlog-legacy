@@ -8,7 +8,7 @@ var showMain = (req,res)=>{
     }
     else{
         res.writeHead(200,{"Content-Type":"text/html;charset='UTF8'"});
-        res.render("main.ejs",{user:req.session.passport.user});
+        res.render("main.ejs",{user:req.user});
     }
 }
 
