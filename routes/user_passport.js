@@ -42,7 +42,7 @@ module.exports = function(app, passport){
     app.get('/logout', function(req,res){
         console.log('/logout path called.');
         req.logout();
-        res.render('main',{user:""});
+        res.redirect('/');
     });
 
     //Facebook Auth
@@ -52,7 +52,7 @@ module.exports = function(app, passport){
     }));
     //Facebook Auth callback
     app.get('/auth/facebook/callback', passport.authenticate('facebook',{
-        successRedirect:'./',
+        successRedirect:'/',
         failureRedirect:'/login'
     }));
 
