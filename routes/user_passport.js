@@ -42,7 +42,7 @@ module.exports = function(app, passport){
     app.get('/logout', function(req,res){
         console.log('/logout path called.');
         req.logout();
-        res.render('main',{user:""});
+        res.redirect('/');
     });
 
     //Facebook Auth
