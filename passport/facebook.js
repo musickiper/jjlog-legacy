@@ -13,8 +13,6 @@ module.exports = function(app,passport){
 
         var database = app.get('database');
         database.UserModel.findById(profile.id, function(err,user){
-            console.log(user);
-
             if(user.length > 0){
                 return done(err, user);
             }

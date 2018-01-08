@@ -42,7 +42,7 @@ var addpost = function(req,res){
                 return;
             }
 
-            var userObjectId = result[0]._id;
+            var userObjectId = result[0]._doc;
 
             var post = new database.PostModel({
                 title:paramTitle,
@@ -83,25 +83,20 @@ var showpost = function(req,res){
             }
 
             if(result){
-
-                console.dir(result);
-
-                res.render('showpost', {title:'Search',posts:result,Entities:entities});
-                /*
-                res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
-
-                var context = {
-                    title:'Search',
-                    posts:result,
-                    Entities:entities
-                };
-
-                req.app.render('showpost',context,function(err,html){
-                    if(err) throw err;
-
-                    res.end(html);
-                });
-                */
+                if(req.session.passport){
+                    if(req.session.passport.user[0]){
+                        res.render('showpost', {title:'Search',posts:result,Entities:entities,user:req.session.passport.user[0]});
+                    }
+                    else if(req.session.passport.user){
+                        res.render('showpost', {title:'Search',posts:result,Entities:entities,user:req.session.passport.user});
+                    }
+                    else{
+                        res.render('confirmLogin',{user:""})
+                    }
+                }
+                else{
+                    res.render('confirmLogin',{user:""});
+                }
             }
         });
     }

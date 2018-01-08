@@ -1,26 +1,37 @@
 <br>
 <hr>
 <div class="row">
-<div class="ui blue fluid card">
-    <div class="content">
-        <%
-            var curTitle = posts._doc.title;
-            var curContents = posts._doc.contents;
-            var curWriter = posts._doc.writer.id;
+	<div class="col-md-12">
+        <form method="post" action="/addpost">
+            <%
+                var curTitle = posts._doc.title;
+                var curContents = posts._doc.contents;
+                var curWriter = posts._doc.writer.email;
 
-            var entities = new Entities();
-            var decodedContents = entities.decode(curContents);
-        %>
+                var curDate = posts._doc.updated_at;
 
-        <div id="titleOutput" class="header"><h2><%=curTitle%></h2></div>
-        <div class="meta">
-            <br>
-            <span class="right floated time">1 day ago</span>
-            <span class="category">Regular Post</span>
+                var entities = new Entities();
+                var decodedContents = entities.decode(curContents);
+            %>
+        <h1><%=curTitle%></h4>
+            <div class="form-group">
+                <input type="hidden" name="writer" id="writer" value="<%=user.email%>" readonly>
+            </div>
+            <div class="form-group">
+                <div class="page-header text-right">
+                    <label for="contents"><h5>Written Date: <%=curDate%></h5></label>
+                    <textarea id="contents" name="contents" rows="10" cols="80" readonly><%=decodedContents%></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="writer">Writer : </label>
+                <input type="text" value=" <%=curWriter%>" readonly style="border:0ch">
+            </div>
+        </form>
+        <div>
+            <input class="btn btn-secondary" type="submit" value="Back to List" name="" href="#">
         </div>
-        <textarea class="description" id="contentsOutput" name="contentsOutput" rows="10" cols="80" readonly>
-            <%=decodedContents%>
-        </textarea>
+        <br>
     </div>
 </div>
 </div>
