@@ -3,16 +3,14 @@ var nodemailer = require('nodemailer');
 var showMain = (req,res)=>{
     console.log('/ path called.');
 
-    var userSession = req.session;
-
-    if(!userSession.passport){
+    if(!req.user){
         res.render("main.ejs",{user:""});
     }
-    else if(userSession.passport.user[0]) {
-        res.render("main.ejs",{user:userSession.passport.user[0]});
+    else if(req.user[0]) {
+        res.render("main.ejs",{user:req.user[0]});
     }
     else{
-        res.render("main.ejs",{user:userSession.passport.user});
+        res.render("main.ejs",{user:req.user});
     }
 }
 
@@ -38,16 +36,14 @@ var showCList = (req,res)=>{
 var contactMe = (req,res)=>{
     console.log('/contactMe path called.');
 
-    var userSession = req.session;
-
-    if(!userSession.passport){
+    if(!req.user){
         res.render("contactMe",{user:""});
     }
-    else if(userSession.passport.user[0]) {
-        res.render("contactMe",{user:userSession.passport.user[0]});
+    else if(req.user[0]) {
+        res.render("contactMe",{user:req.user[0]});
     }
     else{
-        res.render("contactMe",{user:userSession.passport.user});
+        res.render("contactMe",{user:req.user});
     }
 }
 
