@@ -5,7 +5,8 @@ var SchemaObj = {};
 SchemaObj.createSchema = function(mongoose){
 
     var PostSchema = mongoose.Schema({
-        title:{type:String,trim:true,'default':''}
+        courseType:{type:String,trim:true}
+        ,title:{type:String,trim:true,'default':''}
         ,contents:{type:String,trim:true,'default':''}
         ,writer:{type:mongoose.Schema.Types.ObjectId,ref:'users'}
         ,tags:{type:[],'default':''}

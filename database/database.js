@@ -26,6 +26,7 @@ function createSchema(app, config){
     console.log('The number of schemas set : %d', schemaLen);
 
     for(var i = 0; i < schemaLen; i++){
+        var postIndex = 0;
         var curItem = config.db_schemas[i];
 
         var curSchema = require(curItem.file).createSchema(mongoose);

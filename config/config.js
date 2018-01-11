@@ -8,14 +8,17 @@ module.exports = {
     ],
     route_info:[
         {file:'./form',path:'/',method:'showMain',type:'get'}
-        ,{file:'./form',path:'/c',method:'showCList',type:'get'}
+        ,{file:'./form',path:'/c/:page',method:'showCList',type:'get'}
+        ,{file:'./form',path:'/c',method:'showCList',type:'post'}
         ,{file:'./form',path:'/contactMe',method:'contactMe',type:'get'}
         ,{file:'./form',path:'/sendContactMe',method:'sendContactMe',type:'post'}
-        ,{file:'./post',path:'/addpost',method:'writepost',type:'get'}
+        ,{file:'./post',path:'/addpost/:type',method:'writepost',type:'get'}
         ,{file:'./post',path:'/addpost',method:'addpost',type:'post'}
         ,{file:'./post',path:'/showpost/:id',method:'showpost',type:'get'}
-        ,{file:'./post',path:'/process/listpost',method:'listpost',type:'get'}
-        ,{file:'./post',path:'/process/listpost',method:'listpost',type:'post'}
+        /*
+        ,{file:'./post',path:'/listpost/',method:'listpost',type:'get'}
+        ,{file:'./post',path:'/listpost',method:'listpost',type:'post'}
+        */
     ],
     facebook:{
         clientID:"1115438201923916",

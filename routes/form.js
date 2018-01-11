@@ -1,4 +1,5 @@
 var nodemailer = require('nodemailer');
+var post = require('./post');
 
 var showMain = (req,res)=>{
     console.log('/ path called.');
@@ -25,12 +26,10 @@ var showCList = (req,res)=>{
 
     console.log('user authorizing is succeed.');
     
-    if(req.user[0]) {
-        res.render("cList",{user:req.user[0]});
-    }
-    else{
-        res.render("cList",{user:req.user});
-    }
+    req.courseType = 'c';
+    req.paramPage = Number(req.params.page) - 1;
+
+    post.listpost(req,res);
 }
 
 var contactMe = (req,res)=>{

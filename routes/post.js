@@ -1,21 +1,25 @@
 var entities = require('html-entities').AllHtmlEntities;
 
 var writepost = function(req,res){
-    console.log('/writepost called');
+    var courseType = req.params.type;
+
+    console.log('/writepost/' + courseType + ' called');
 
     if(!req.user){
         res.render("confirmLogin",{user:""});
     }
     else if(req.user[0]){
-        res.render("writepost",{user:req.user[0]});
+        res.render("writepost",{user:req.user[0], type:courseType});
     }
     else{
-        res.render("writepost",{user:req.user});
+        res.render("writepost",{user:req.user, type:courseType});
     }
 }
 
 var addpost = function(req,res){
-    console.log("post's addpost called.");
+    var paramType = req.body.courseType;
+
+    console.log("post's addpost/" + paramType + " called.");
 
     var paramTitle = req.body.title || req.query.title;
     var paramContents = req.body.contents || req.query.contents;
@@ -45,6 +49,7 @@ var addpost = function(req,res){
             var userObjectId = result[0]._doc;
 
             var post = new database.PostModel({
+                courseType:paramType,
                 title:paramTitle,
                 contents:paramContents,
                 writer:userObjectId
@@ -62,7 +67,7 @@ var addpost = function(req,res){
 };
 
 var showpost = function(req,res){
-    console.log("post's showpost called.");
+    console.log("post's showpost/" + req.body.courseType + " called.");
 
     var paramId = req.body.id || req.query.id || req.params.id;
 
@@ -103,17 +108,16 @@ var showpost = function(req,res){
 };
 
 var listpost = function(req,res){
-    console.log("post's listpost called.");
-
-    var paramPage = req.body.page || req.query.page;
-    var paramPerPage = req.body.perPage || req.query.perPage;
+    console.log("post's listpost with " + req.courseType+ " called.");
 
     var database = req.app.get('database');
 
     if(database.db){
+
         var options = {
-            page:paramPage,
-            perPage:paramPerPage
+            criteria:{courseType:req.courseType},
+            page:req.paramPage,
+            perPage:10
         }
 
         database.PostModel.list(options, function(err,result){
@@ -129,19 +133,27 @@ var listpost = function(req,res){
             }
 
             if(result){
-                database.PostModel.count().exec(function(err,count){
-                    res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
+                database.PostModel.count({courseType:req.courseType}).exec(function(err,count){
 
                     var context = {
                         title:'Contents list',
                         posts:result,
-                        page:parseInt(paramPage),
-                        pageCount:Math.ceil(count/paramPerPage),
-                        perPage:paramPerPage,
+                        page:options.page + 1,
+                        pageCount:Math.ceil(count/options.perPage),
+                        perPage:options.perPage,
                         totalRecords:count,
-                        size:paramPerPage
                     };
 
+                    if(!req.user){
+                        res.render("confirmLogin",{user:""});
+                    }
+                    else if(req.user[0]){
+                        res.render("listpost",{user:req.user[0], context});
+                    }
+                    else{
+                        res.render("listpost",{user:req.user, context});
+                    }
+                    /*
                     req.app.render('listpost', context, function(err,html){
                         if(err){
                             console.log('Error happen when maiking res web-doc : ' + err.stack);
@@ -155,6 +167,7 @@ var listpost = function(req,res){
                         }
                         res.end(html);
                     });
+                    */
                 });                    
             }
         });
