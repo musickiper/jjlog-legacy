@@ -30,7 +30,41 @@ var showCList = (req,res)=>{
     req.paramPage = Number(req.params.page) - 1;
 
     post.listpost(req,res);
-}
+};
+
+var showCppList = (req,res)=>{
+    console.log('/showCppList path called.');
+
+    if(!req.user){
+        console.log('user authorizing is failed.');
+        res.redirect('/confirmLogin');
+        return;
+    }
+
+    console.log('user authorizing is succeed.');
+    
+    req.courseType = 'cpp';
+    req.paramPage = Number(req.params.page) - 1;
+
+    post.listpost(req,res);
+};
+
+var showHtmlcssList = (req,res)=>{
+    console.log('/showCList path called.');
+
+    if(!req.user){
+        console.log('user authorizing is failed.');
+        res.redirect('/confirmLogin');
+        return;
+    }
+
+    console.log('user authorizing is succeed.');
+    
+    req.courseType = 'htmlcss';
+    req.paramPage = Number(req.params.page) - 1;
+
+    post.listpost(req,res);
+};
 
 var contactMe = (req,res)=>{
     console.log('/contactMe path called.');
@@ -83,5 +117,7 @@ var sendContactMe = (req,res)=>{
 
 module.exports.showMain = showMain;
 module.exports.showCList = showCList;
+module.exports.showCppList = showCppList;
+module.exports.showHtmlcssList = showHtmlcssList;
 module.exports.contactMe = contactMe;
 module.exports.sendContactMe = sendContactMe;

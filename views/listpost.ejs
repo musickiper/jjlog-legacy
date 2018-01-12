@@ -2,51 +2,76 @@
 <hr>
 <div class="row">
 	<div class="col-md-12">
-        <%
-            var title = context.title;
-            var contents = context.posts;
-            var thisPage = context.page;
-            var totalPage = context.pageCount;
-            var perPage = context.perPage;
-            var totalRec = context.totalRecords;
-            var courseType = contents[0]._doc.courseType;
-        %>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Index</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Writer</th>
-                    <th scope="col">Created At</th>
-                    <th scope="col">Views</th>
+    <%
+        var title = context.title;
+        var contents = context.posts;
+        var thisPage = context.page;
+        var totalPage = context.pageCount;
+        var perPage = context.perPage;
+        var totalRec = context.totalRecords;
+        var courseType = context.courseType;
+        var postCount = context.postCount;
+    %>
+    <%if(context.pageCount != 0){%>
+        <table class="table table-hover" id="no-more-tables">
+            <thead id="no-more-tables">
+                <tr id="no-more-tables">
+                    <th scope="col" id="no-more-tables">Title</th>
+                    <th scope="col" id="no-more-tables">Writer</th>
+                    <th scope="col" id="no-more-tables">Created At</th>
                     <% if(user.email == "leedo01219@gmail.com"){%>
-                    <th scope="col">Deletion</th>
+                    <th scope="col" id="no-more-tables"></th>
                     <%}%>
                 </tr>
             </thead>
-            <tbody>
-                <% for(var i = 0; i < totalRec; i++){ %>
-                <tr>
-                <td scope="col"></td>  
-                <td scope="col" onclick="javascript:window.location='/showpost/<%=contents[i]._id%>'"><%=contents[i]._doc.title%></td>
-                <td scope="col"><%=contents[i]._doc.writer._doc.email%></td>
-                <td scope="col"><%=contents[i]._doc.created_at%></td>
-                <td scope="col"></td>
-                <% if(user.email == "leedo01219@gmail.com"){%>
-                <td scope="col"><a class="btn btn-secondary" name="" href="#">Delete Post</a></td>
-                <%}%>
+            <tbody id="no-more-tables">
+                <% for(var i = 0; i < postCount ; i++){ %>
+                <tr id="no-more-tables">
+                    <td scope="col" id="no-more-tables" name="title" onclick="javascript:window.location='/showpost/<%=contents[i]._id%>'"><%=contents[i]._doc.title%></td>
+                    <td scope="col" id="no-more-tables"><%=contents[i].writer.email%></td>
+                    <% 
+                        var d = new Date(contents[i]._doc.created_at);
+
+
+                        var form = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() + ' ' +d.getHours() + ':';
+
+                        var formedMin = Number(d.getMinutes()) < 10 ? ('0' + d.getMinutes()) : d.getMinutes();
+                        var formedSec = Number(d.getSeconds()) < 10 ? ('0' + d.getSeconds()) : d.getSeconds();
+
+                        form += formedMin + ':' + formedSec;
+                    %>
+                    <td scope="col" id="no-more-tables"><%=form%></td>
+                    <td scope="col" id="no-more-tables"></td>
+                    <% if(user.email == "leedo01219@gmail.com"){%>
+                    <td scope="col" id="no-more-tables"><a class="btn btn-secondary" name="" href="#">Delete Post</a></td>
+                    <%}%>
                 </tr>
                 <%}%>
             </tbody>
         </table>
+    <%}%>
         <hr>
         <nav aria-label="Page navigation example">
+                <%
+                    var count = Math.floor((thisPage / 5) - 0.0001,0);
+                    var index = (5*count) + 1;
+
+                    var prev = count != 0 ? (count-1)*5 + 1 : 1;
+                    var next;
+
+                    if(totalPage > (count+1)*5){
+                        next = (count+1)*5 + 1;
+                    }
+                    else{
+                        next = '#';
+                    }
+                %>
                 <ul class="pagination justify-content-center">
-                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                   <% for(var i = 1; i <= totalPage; i++){ %>
-                       <li class="page-item"><a class="page-link" href="/<%=courseType%>/<%=i%>"><%=i%></a></li>
-                   <%}%>
-                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                  <li class="page-item"><a class="page-link" href="/<%=courseType%>/<%=prev%>">Previous</a></li>
+                <%for(var i = index; i <= (5*(count+1)) && i <= totalPage; i++){ %>
+                    <li class="page-item"><a class="page-link" href="/<%=courseType%>/<%=i%>"><%=i%></a></li>
+                <%}%>
+                  <li class="page-item"><a class="page-link" href="/<%=courseType%>/<%=next%>">Next</a></li>
                 </ul>
         </nav>
         <% if(user.email == "leedo01219@gmail.com"){%>

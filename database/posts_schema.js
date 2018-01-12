@@ -63,7 +63,7 @@ SchemaObj.createSchema = function(mongoose){
                 .exec(callback);
         },
         list:function(options, callback){
-            var criteria = options.criteria || {};
+            var criteria = options.criteria ||{};
 
             this.find(criteria)
                 .populate('writer', 'name provider email')

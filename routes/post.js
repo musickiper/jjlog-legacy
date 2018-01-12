@@ -142,6 +142,8 @@ var listpost = function(req,res){
                         pageCount:Math.ceil(count/options.perPage),
                         perPage:options.perPage,
                         totalRecords:count,
+                        postCount:( (options.page+1)==(Math.ceil(count/options.perPage)) ? count - (options.perPage * (Math.ceil(count/options.perPage) - 1)) : options.perPage ),
+                        courseType:req.courseType
                     };
 
                     if(!req.user){

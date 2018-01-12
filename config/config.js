@@ -10,6 +10,10 @@ module.exports = {
         {file:'./form',path:'/',method:'showMain',type:'get'}
         ,{file:'./form',path:'/c/:page',method:'showCList',type:'get'}
         ,{file:'./form',path:'/c',method:'showCList',type:'post'}
+        ,{file:'./form',path:'/cpp/:page',method:'showCppList',type:'get'}
+        ,{file:'./form',path:'/cpp',method:'showCppList',type:'post'}
+        ,{file:'./form',path:'/htmlcss/:page',method:'showHtmlcssList',type:'get'}
+        ,{file:'./form',path:'/htmlcss',method:'showHtmlcssList',type:'post'}
         ,{file:'./form',path:'/contactMe',method:'contactMe',type:'get'}
         ,{file:'./form',path:'/sendContactMe',method:'sendContactMe',type:'post'}
         ,{file:'./post',path:'/addpost/:type',method:'writepost',type:'get'}
