@@ -17,9 +17,18 @@
         <!-- Inline Javascript for writePost-->
         <script>
             $(function(){
+                var url = window.location.pathname;
+
                 CKEDITOR.config.extraPlugins = 'colorbutton';
                 CKEDITOR.env.isCompatible = true;
-                CKEDITOR.replace('contents');
+                if(url[1] == 'a'){
+                    CKEDITOR.replace('contents');
+                }
+                else{
+                    CKEDITOR.replace('contents',{
+                        toolbarGroups:[]
+                    });
+                }
                 CKEDITOR.config.height = '330px';
                 CKEDITOR.config.width = '100%';
             });
