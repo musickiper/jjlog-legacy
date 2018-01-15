@@ -1,7 +1,7 @@
 module.exports = {
     server_port:process.env.PORT || 3000,
     //db_url:"mongodb://localhost:27017/local",
-    db_url:"mongodb://leedo01219:Jun1452563#@ds249605.mlab.com:49605/heroku_bmbp7spr",
+    db_url:"mongodb://leedo01219@gmail.com:Jun1452563#@ds157057.mlab.com:57057/ysdb",
     db_schemas:[
         {file:"./user_schema",collection:"users",schemaName:"UserSchema",modelName:"UserModel"}
         ,{file:"./posts_schema",collection:"posts",schemaName:"PostSchema",modelName:"PostModel"}
