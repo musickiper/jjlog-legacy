@@ -17,3 +17,9 @@ However, I am going to finish to make the prototype of my website as soon as pos
 Please, expect how wonderful website will be made by me lol
 
 To see the website, ===> https://musickiper-home.herokuapp.com/
+
+
+---(2018/01/15)---
+My homepage url is blocked by Facebook....
+So, you cannot use the login with Facebook button..
+I'm trying to release this problem. Hopelly it is going to work..!
