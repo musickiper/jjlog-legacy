@@ -34,17 +34,16 @@ SchemaObj.createSchema = function(mongoose){
             });
         },
         addComent:function(user,comment,callback){
-            this.comment.push({
+            this.comments.push({
                 contents:comment.contents,
                 writer:user._id,
-                created_at:Date.now
             });
             this.save(callback);
         },
         removeComment:function(id,callback){
-            var index = utils.indexOf(this.comments, {id:id});
+            var index = utils.indexOf(this.comments, {_id:id});
 
-            if(index){
+            if(index > -1){
                 this.comments.splice(index, 1);
             }
             else{

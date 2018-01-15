@@ -90,10 +90,10 @@ var showpost = function(req,res){
             if(result){
                 if(req.session.passport){
                     if(req.session.passport.user[0]){
-                        res.render('showpost', {title:'Search',posts:result,Entities:entities,user:req.session.passport.user[0]});
+                        res.render('showpost', {title:'Search',posts:result,Entities:entities,user:req.session.passport.user[0],paramId:paramId});
                     }
                     else if(req.session.passport.user){
-                        res.render('showpost', {title:'Search',posts:result,Entities:entities,user:req.session.passport.user});
+                        res.render('showpost', {title:'Search',posts:result,Entities:entities,user:req.session.passport.user,paramId:paramId});
                     }
                     else{
                         res.render('confirmLogin',{user:""})
@@ -176,7 +176,93 @@ var listpost = function(req,res){
     }
 };
 
+var addComment = function(req,res){
+
+    console.log("post's addComment called.");
+
+    var postId = req.body.postId;
+    var writerName = req.body.writerName;
+    var writerEmail = req.body.writerEmail;
+    var commentContent = req.body.commentText;
+    var writerId = req.body.writerId;
+
+    var database = req.app.get('database');
+
+    if(database.db){
+        database.PostModel.load(postId, function(err,result){
+            if(err){
+                console.log('Error happen when adding a comment to the post : ' + err.stack);
+
+                res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
+                res.write('<h2>Error happen when adding a comment to the post</h2>');
+                res.write('<p>' + err.stack + '</p>');
+                res.end();
+                return;
+            }
+
+            if(result == undefined || result.length < 1){
+                res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
+                res.write('<h2>Can not find the post : ' + postId + '</h2>');
+                res.end();
+                return;
+            }
+
+            if(result){
+                result.addComent({_id:writerId},{contents:commentContent},(err,result)=>{
+                    if(err) throw err;
+
+                    console.log('A comment added.');
+
+                    res.redirect('/showPost/' + postId);
+                });
+            }
+        });
+    }
+};
+
+var deleteComment = function(req,res){
+    console.log("post's deleteComment called.");
+
+    var postId = req.body.postId;
+    var commentId = req.body.commentId;
+
+    var database = req.app.get('database');
+
+    if(database.db){
+        database.PostModel.load(postId, function(err,result){
+            if(err){
+                console.log('Error happen when adding a comment to the post : ' + err.stack);
+
+                res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
+                res.write('<h2>Error happen when adding a comment to the post</h2>');
+                res.write('<p>' + err.stack + '</p>');
+                res.end();
+                return;
+            }
+
+            if(result == undefined || result.length < 1){
+                res.writeHead(200,{"Content-Type":"text/html;charset='utf8'"});
+                res.write('<h2>Can not find the post : ' + postId + '</h2>');
+                res.end();
+                return;
+            }
+
+            if(result){
+                result.removeComment(commentId,(err,result)=>{
+                    if(err) throw err;
+
+                    console.log('A comment deleted.');
+
+                    res.redirect('/showPost/' + postId);
+                });
+            }
+        });
+    }
+};
+
 module.exports.writepost = writepost;
 module.exports.addpost = addpost;
 module.exports.showpost = showpost;
 module.exports.listpost = listpost;
+module.exports.addComment = addComment;
+module.exports.deleteComment = deleteComment;

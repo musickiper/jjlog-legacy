@@ -66,6 +66,40 @@ var showHtmlcssList = (req,res)=>{
     post.listpost(req,res);
 };
 
+var showNodejsList = function(req,res){
+    console.log('/showNodejsList path called.');
+
+    if(!req.user){
+        console.log('user authorizing is failed.');
+        res.redirect('/confirmLogin');
+        return;
+    }
+
+    console.log('user authorizing is succeed.');
+    
+    req.courseType = 'nodejs';
+    req.paramPage = Number(req.params.page) - 1;
+
+    post.listpost(req,res);
+};
+
+var showEtcList = function(req,res){
+    console.log('/showEtcList path called.');
+
+    if(!req.user){
+        console.log('user authorizing is failed.');
+        res.redirect('/confirmLogin');
+        return;
+    }
+
+    console.log('user authorizing is succeed.');
+    
+    req.courseType = 'etc';
+    req.paramPage = Number(req.params.page) - 1;
+
+    post.listpost(req,res);
+};
+
 var contactMe = (req,res)=>{
     console.log('/contactMe path called.');
 
@@ -119,5 +153,7 @@ module.exports.showMain = showMain;
 module.exports.showCList = showCList;
 module.exports.showCppList = showCppList;
 module.exports.showHtmlcssList = showHtmlcssList;
+module.exports.showNodejsList = showNodejsList;
+module.exports.showEtcList = showEtcList;
 module.exports.contactMe = contactMe;
 module.exports.sendContactMe = sendContactMe;

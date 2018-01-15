@@ -1,5 +1,6 @@
 exports.indexOf = function(arr,obj){
     var index = -1;
+    /*
     var keys = Object.keys(obj);
 
     var result = arr.filter(function(doc,idx){
@@ -16,6 +17,11 @@ exports.indexOf = function(arr,obj){
             }
         }
     });
-
+    */
+    for(var i = 0; i < arr.length; i++){
+        if(arr[i]._doc._id == obj._id){
+            return i;
+        }
+    }
     return index;
 }
