@@ -26,9 +26,11 @@
                 }
                 else{
                     CKEDITOR.replace('contents',{
-                        toolbarGroups:[]
+                        //toolbarGroups:[]
                     });
+                    //CKEDITOR.config.removePlugins = 'toolbar';
                 }
+                CKEDITOR.replace('contents');
                 CKEDITOR.config.height = '330px';
                 CKEDITOR.config.width = '100%';
             });
