@@ -19,9 +19,9 @@
                     <th scope="col" id="no-more-tables">Title</th>
                     <th scope="col" id="no-more-tables">Writer</th>
                     <th scope="col" id="no-more-tables">Created At</th>
-                    <% if(user.email == "leedo01219@gmail.com"){%>
+                    <!--<% if(user.email == "leedo01219@gmail.com"){%>-->
                     <th scope="col" id="no-more-tables"></th>
-                    <%}%>
+                    <!--<%}%>-->
                 </tr>
             </thead>
             <tbody id="no-more-tables">
@@ -43,7 +43,7 @@
                     <td scope="col" id="no-more-tables"><%=form%></td>
                     <td scope="col" id="no-more-tables"></td>
                     <% if(user.email == "leedo01219@gmail.com"){%>
-                    <td scope="col" id="no-more-tables"><a class="btn btn-secondary" name="" href="#">Delete Post</a></td>
+                    <!--<td scope="col" id="no-more-tables"><a class="btn btn-secondary" name="" href="#">Delete Post</a></td>-->
                     <%}%>
                 </tr>
                 <%}%>
@@ -52,30 +52,31 @@
     <%}%>
         <hr>
         <nav aria-label="Page navigation example">
-                <%
-                    var count = Math.floor((thisPage / 5) - 0.0001,0);
-                    var index = (5*count) + 1;
+            <%
+                var count = Math.floor((thisPage / 5) - 0.0001,0);
+                var index = (5*count) + 1;
 
-                    var prev = count != 0 ? (count-1)*5 + 1 : 1;
-                    var next;
+                var prev = count != 0 ? (count-1)*5 + 1 : 1;
+                var next;
 
-                    if(totalPage > (count+1)*5){
-                        next = (count+1)*5 + 1;
-                    }
-                    else{
-                        next = Number(thisPage);
-                    }
-                %>
-                <ul class="pagination justify-content-center">
-                  <li class="page-item"><a class="page-link" href="/<%=courseType%>/<%=prev%>">Previous</a></li>
-                <%for(var i = index; i <= (5*(count+1)) && i <= totalPage; i++){ %>
-                    <li class="page-item"><a class="page-link" href="/<%=courseType%>/<%=i%>"><%=i%></a></li>
-                <%}%>
-                  <li class="page-item"><a class="page-link" href="/<%=courseType%>/<%=next%>">Next</a></li>
-                </ul>
+                if(totalPage > (count+1)*5){
+                    next = (count+1)*5 + 1;
+                }
+                else{
+                    next = Number(thisPage);
+                }
+            %>
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="/<%=courseType%>/<%=prev%>">Previous</a></li>
+            <%for(var i = index; i <= (5*(count+1)) && i <= totalPage; i++){ %>
+                <li class="page-item"><a class="page-link" href="/<%=courseType%>/<%=i%>"><%=i%></a></li>
+            <%}%>
+                <li class="page-item"><a class="page-link" href="/<%=courseType%>/<%=next%>">Next</a></li>
+            </ul>
         </nav>
-        <% if(user.email == "leedo01219@gmail.com"){%>
-        <a class="btn btn-secondary" name="" href="/addpost/<%=courseType%>">Add Post</a>
-        <%}%>
+            <% if(user.email == "leedo01219@gmail.com"){%>
+            <!--<a class="btn btn-secondary" name="" href="/addpost/<%=courseType%>">Add Post</a>-->
+            <%}%>
+            <a class="btn btn-secondary" name="" href="/addpost/<%=courseType%>">Add Post</a>
     </div>
 </div>
