@@ -1,91 +1,131 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Home Page</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-        <link rel="stylesheet" href="/css/default.css">
-        <link rel="stylesheet" href="/css/cleditor/jquery.cleditor.css">
-        <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Home Page</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+      integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/default.css" />
+    <link rel="stylesheet" href="/css/cleditor/jquery.cleditor.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Rajdhani"
+      rel="stylesheet"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+      integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+      integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+      crossorigin="anonymous"
+    ></script>
 
-        <!--ckeditor-->
-        <script src="https://cdn.ckeditor.com/4.7.3/standard-all/ckeditor.js"></script>
+    <!--ckeditor-->
+    <script src="https://cdn.ckeditor.com/4.7.3/standard-all/ckeditor.js"></script>
 
-        <!-- Inline Javascript for writePost-->
-        <script>
-            $(function(){
-                var url = window.location.pathname;
+    <!-- Inline Javascript for writePost-->
+    <script>
+      $(function() {
+        var url = window.location.pathname;
 
-                CKEDITOR.config.extraPlugins = 'colorbutton';
-                CKEDITOR.env.isCompatible = true;
-                if(url[1] == 'a'){
-                    CKEDITOR.replace('contents');
-                }
-                else{
-                    CKEDITOR.replace('contents',{
-                        //toolbarGroups:[]
-                    });
-                    //CKEDITOR.config.removePlugins = 'toolbar';
-                }
+        CKEDITOR.config.extraPlugins = "colorbutton";
+        CKEDITOR.env.isCompatible = true;
+        if (url[1] == "a") {
+          CKEDITOR.replace("contents");
+        } else {
+          CKEDITOR.replace("contents", {
+            //toolbarGroups:[]
+          });
+          //CKEDITOR.config.removePlugins = 'toolbar';
+        }
 
-                CKEDITOR.replace('contents');
-                CKEDITOR.config.height = '330px';
-                CKEDITOR.config.width = '100%';
-            });
-        </script>
-    </head>
-    <body>
-        <header>
-            <div class="card">
-                <div class="card-header">
-                    <h1>Younsung Jung Portfolio</h1>
-                    <div class="page-header text-right">
-                        <% if(user != ""){%>
-                        Welcome <a href="/profile"><%=user.name%></a>!
-                        <%}else{%>
-                        <a href="/login" class="btn btn-primary btn-lg" role="button" aria-pressed="true">LogIn</a>
-                        <a href="/signup" class="btn btn-primary btn-lg" role="button" aria-pressed="true">SignUp</a>
-                        <%}%>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <nav>
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Main</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Works</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/c/1">C</a>
-                        <a class="dropdown-item" href="/cpp/1">C++</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/htmlcss/1">HTML/CSS</a>
-                        <a class="dropdown-item" href="/nodejs/1">NodeJS</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/etc/1">ETC</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contactMe">Contact Me</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://jamesjung-home.herokuapp.com/">New Website</a>
-                </li>
-            </ul>
-        </nav>
-        <section>
-            <div class="container"><%-body%></div>
-        </section>
-        <footer>
-            <div class="card-footer text-muted">
-                <h6>@2017 - Younsung Jung</h6>
-            </div>
-        </footer>
-    </body>
+        CKEDITOR.replace("contents");
+        CKEDITOR.config.height = "330px";
+        CKEDITOR.config.width = "100%";
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <div class="card">
+        <div class="card-header">
+          <h1>James Jung Portfolio</h1>
+          <div class="page-header text-right">
+            <% if(user != ""){%> Welcome <a href="/profile"><%=user.name%></a>!
+            <%}else{%>
+            <a
+              href="/login"
+              class="btn btn-primary btn-lg"
+              role="button"
+              aria-pressed="true"
+              >LogIn</a
+            >
+            <a
+              href="/signup"
+              class="btn btn-primary btn-lg"
+              role="button"
+              aria-pressed="true"
+              >SignUp</a
+            >
+            <%}%>
+          </div>
+        </div>
+      </div>
+    </header>
+    <nav>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Main</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            >Works</a
+          >
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/c/1">C</a>
+            <a class="dropdown-item" href="/cpp/1">C++</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/htmlcss/1">HTML/CSS</a>
+            <a class="dropdown-item" href="/nodejs/1">NodeJS</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/etc/1">ETC</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contactMe">Contact Me</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://jamesjung-home.herokuapp.com/"
+            >New Website</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <section>
+      <div class="container"><%-body%></div>
+    </section>
+    <footer>
+      <div class="card-footer text-muted">
+        <h6>@2017 - Younsung Jung</h6>
+      </div>
+    </footer>
+  </body>
 </html>
