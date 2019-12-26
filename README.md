@@ -1,25 +1,57 @@
-"#project1"
+# jjlog-legacy
 
-- Private Website -
+This is the first version of my blog application. 
+This application allowed me 
+to do authentication, to upload my posts of projects, to get comments from other people, and to get email from other people.
 
-Hello my friends!!
+## Table of contents
+- [Demo](#demo)
+- [Quick Start](#quick-start)
+- [Documentation](#documentation)
 
-Welcome to my website source repo !
+## Demo
+![screencast](demo.gif)
 
-I'm making my own website using HTML5, Javascript, CSS, node/expressJS, MongoDB, PostgreSQL, Angular, ...
+## Quick Start
+### To run locally:
+```
+git clone https://github.com/musickiper/jjlog-legacy.git
+cd jjlog-legacy/
+npm install
+npm start
+```
 
-For showing who I am and what I can do by myself to everybody :)
+### To get started developing right away:
+```
+install all project dependencies with npm install
+start the development server with npm start or yarn start
+```
 
-Unfortunately, it is still on costruction ;(
+### To build & deploy on firebase:
+```
+npm run build && npm run deploy
+```
 
-However, I am going to finish to make the prototype of my website as soon as possible :)
+## Documentation
 
-Please, expect how wonderful website will be made by me lol
+### Tach Stack
+#### Front
+- HTML
+- CSS
+- JavaScript
+- EJS Template
+- CKEditor
 
-To see the website, ===> https://musickiper-home.herokuapp.com/
+#### Back
+- Express.js
+- Passport.js
+- JWT
+- Facebook Token
+- MongoDB
+- NodeMailer
 
-
----(2018/01/15)---<br>
-My homepage url is blocked by Facebook....
-So, you cannot use the login with Facebook button..
-I'm trying to release this problem. Hopelly it is going to work..!
+### Functionality (requirements)
+* Write, edit, and delete a post
+* Get feedback on the post by other users
+* Get an email from other users
+* Auth using `Passport.js`, `JWT`, and `Facebook Token`
