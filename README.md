@@ -6,31 +6,10 @@ to do authentication, to upload my posts of projects, to get comments from other
 
 ## Table of contents
 - [Demo](#demo)
-- [Quick Start](#quick-start)
 - [Documentation](#documentation)
 
 ## Demo
 ![screencast](demo.gif)
-
-## Quick Start
-### To run locally:
-```
-git clone https://github.com/musickiper/jjlog-legacy.git
-cd jjlog-legacy/
-npm install
-npm start
-```
-
-### To get started developing right away:
-```
-install all project dependencies with npm install
-start the development server with npm start or yarn start
-```
-
-### To build & deploy on firebase:
-```
-npm run build && npm run deploy
-```
 
 ## Documentation
 
